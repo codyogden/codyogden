@@ -1,0 +1,81 @@
+==================================================================
+https://keybase.io/codyogden
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://codyogden.com
+  * I am codyogden (https://keybase.io/codyogden) on keybase.
+  * I have a public key with fingerprint EAB0 621B 28AA 9ABE 4277  3AF3 A64F 943F 295E C498
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0101906f06facb799cdac12621a244be8382dd6188576cc4efaf15170beb47cd08100a",
+      "fingerprint": "eab0621b28aa9abe42773af3a64f943f295ec498",
+      "host": "keybase.io",
+      "key_id": "a64f943f295ec498",
+      "kid": "0101906f06facb799cdac12621a244be8382dd6188576cc4efaf15170beb47cd08100a",
+      "uid": "b91eee0cf1dd21bfa938e413d2435419",
+      "username": "codyogden"
+    },
+    "merkle_root": {
+      "ctime": 1557592193,
+      "hash_meta": "244ab58abd1eea12b829bf02e6a724eedfdfd349df911af2c60b93e09562f75b",
+      "seqno": 5349833
+    },
+    "revoke": {
+      "sig_ids": [
+        "71b34e403f8a4c18c65b8d3b116cc7a73cc07da8ce0875ccead283d5597c3dc60f"
+      ]
+    },
+    "service": {
+      "hostname": "codyogden.com",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "ctime": 1557592201,
+  "expire_in": 157680000,
+  "prev": "cdc77cdb92d847e20a46bcef9822cf05c823ba9842766234d128264e65d2515f",
+  "seqno": 70,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.1.0
+Comment: https://keybase.io/crypto
+
+yMK4AnicrVNtaBxFGL6krWIgXoWqNSjWbShWzjAzO7M7cxUpgiglSG0LrSR6zsc7
+d8slt+fuJqaEiK2otUXq9w8FobWF1qaWopISCq31OxVFWqLxE6lGQWxRhEqTVmeD
+Ioo/3V0YZuZ5n+fZ5515q31eoa0lPf/Zu8+w+PaW48eGBgq9k789Nuyp2Gz0ysNe
+HeYG6DOQZpV6ZLyyhzDCAgXWfVKrUAhtpMYkIFgSShVwnxNjAsw5CwOtKVhpMcMh
+UqBoqA3iGCHplTwbNaqQNJOokTlakAo5DkW4lEIqoCQMfWl9GVArqG+JYKCp4K6w
+Fqd5hTOnZApdUezW3KQyZ+8/8P+z74E5OiUwACBtsTHOtpXC50Cxbwj1GcUiB6aQ
+NGQ/OLR2gcZVAw1vpOT1Q1Lvg0oSx1mers6iHIMZC5kgWPjuD2Vaq/RDJl2pMycV
+41IZJygxUZwIZRGBQIaEAhjrXp8KYwXG0hIdICV8QIIFxIZMOSMp3NeIvTJzKO77
+zkECg3EdcvE0qrrcUq/c44VY+RQo8i2XVGOuA6a48RXGLo5Qhr7WKDSSa0A8ZFqD
+NIT7hjERat84WevdPZKLJYORniPPG/XvALp03O8sNZM4i3Xc57ZqWdZMy3kw2cZm
+jr0fVOVPloqKGsadE1cxCEkaxQ0XlEP+MzOCcMmDoWaUQCXKEa6DHLkn14HBXN7o
+0PVQCWI4DYEgSQOlwQpOiLaIaU58JQV3py4IiE8NJpwEFAJmCMPM/h1i6EgzWXWc
+LrqGzAYS8EaOHe2dX2hpK1y0oDW/QIW2Sxb+da2mSxf//sClXz5/w7Vxz+5P2xaW
+Zj46WJp+ZfUVB0YPfX3iwrp5L83Yq4tlqr7f8uELU9d3xO1Pb3pztrR3dE/wc+f4
+9lV89ZNbPz9dXD5WX/t2Z/XW2an2mwuTE/Pv2X3b64fJ+Lpdi3at77h8+tSCLfHM
+O/sOvTGuVv1aeKp3x/s9d538oveRDQ8uG3u5+Qkc3bxkzXOXbetodq94ddv5lYvP
+ru1DtDvd3jx8zYGlt1x1eiIe7Zo8MdQz1T178via2uj48uuePTd2Zv3O6dadP975
+U/HhU0e89LviueLSyYlpuvXM4/tWPlHb9Ohe+9VDfbXW/ZvPzv6y+N4NVy65sfPj
+b+8Y/uCmF3f88N6F147sXzbxTWFFzx913oqQ
+=Z5Rs
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/codyogden
+
+==================================================================
