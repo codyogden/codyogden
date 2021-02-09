@@ -1,42 +1,14 @@
-import { Component } from 'react';
 import Head from 'next/head';
 import ImCodyOgden from './ImCodyOgden';
 
-const textStyle = {
-  fontFamily: '\'Indie Flower\', \'Helvetica\', sans-serif',
-  fontSize: '2em',
-  marginTop: '15px',
-};
-
-export default class Header extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  render() {
-    const headerStyles = {
-      width: '450px',
-    };
-    const containerStyles = {
-      display: 'flex',
-      flexFlow: 'column nowrap',
-      alignItems: 'center',
-      transform: 'rotate(-3deg)',
-      padding: '150px 0',
-      height: '100vh',
-      boxSizing: 'border-box',
-      justifyContent: 'center',
-      overflow: 'hidden',
-      width: '100%',
-    };
+export default function Header() {
     return (
       <header>
         <Head>
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link href={'https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap'} rel="stylesheet" />
         </Head>
-        <div style={containerStyles}>
+        <div className="container">
           <ImCodyOgden />
           <p>
             I make things for the web.
@@ -44,6 +16,18 @@ export default class Header extends Component {
         </div>
         <style jsx>{`
           overflow: hidden;
+          .container {
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: center;
+            transform: rotate(-3deg);
+            padding: 150px 0;
+            height: 100vh;
+            box-sizing: border-box;
+            justify-content: center;
+            overflow: hidden;
+            width: 100%;
+          }
           p {
               font-family: 'Indie Flower', sans-serif;
               font-size: 2rem;
@@ -68,5 +52,4 @@ export default class Header extends Component {
         `}</style>
       </header>
     );
-  }
 }

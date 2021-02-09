@@ -18,21 +18,16 @@ export default class ImCodyOgden extends Component {
         strokeColor: '#333',
       });
 
-    if (!sessionStorage.getItem('animation-run') || process.env.NODE_ENV === "development") {
-      // After the 10th path, start the fade in of the fill.
-      animation.on('update:imcodyogden-10', () => {
-        this.fadeInFill(true);
-      });
-      // Ship it.
-      animation.paint();
-      sessionStorage.setItem('animation-run', true);
-      animation.on('complete:imcodyogden-10', () => {
-        // this.props.callback();
-      });
-    } else {
-      animation.set('progress', 1);
-      this.fadeInFill(false);
-    }
+    // After the 10th path, start the fade in of the fill.
+    animation.on('update:imcodyogden-10', () => {
+      this.fadeInFill(true);
+    });
+    // Ship it.
+    animation.paint();
+    sessionStorage.setItem('animation-run', true);
+    animation.on('complete:imcodyogden-10', () => {
+      // this.props.callback();
+    });
   }
 
   fadeInFill(transition) {

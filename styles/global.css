@@ -1,4 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+html,
+body {
+    background-color: #fafafa;
+}
 body {
     margin: 0;
     padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif;
+}
+
+a {
+    color: #1F8DD6;
 }
