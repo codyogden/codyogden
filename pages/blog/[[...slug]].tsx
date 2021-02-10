@@ -1,17 +1,17 @@
-import BlogFeed from '../../components/BlogFeed';
-import { getAllPosts, getPostBySlug, getRecentPosts } from '../../lib/blog';
+import Blog from '@components/Blog';
+import BlogPostSingle from '@components/BlogPostSingle';
+import { defaultLimit, getAllPosts, getPostBySlug, getRecentPosts } from '@lib/blog';
 
 export default function BlogPost(props): any {
     if(!props.slug)
-        return <BlogFeed posts={props.posts} />
-    return <>
-        <div dangerouslySetInnerHTML={{ __html: props.posts.html}}></div>
-    </>
+        return <Blog thePosts={props.posts} />;
+    return <BlogPostSingle post={props.posts} />
 };
 
 export async function getStaticProps({ params }) {
     if (!params.slug) {
-        const posts = await getRecentPosts({ limit: 15 });
+        const posts = await getRecentPosts({ limit: defaultLimit });
+        console.log(posts);
         return {
             props: {
                 slug: false,

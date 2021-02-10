@@ -1,13 +1,8 @@
-import Head from 'next/head';
 import ImCodyOgden from './ImCodyOgden';
 
-export default function Header() {
+export default function SplashHeader() {
     return (
       <header>
-        <Head>
-          <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link href={'https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap'} rel="stylesheet" />
-        </Head>
         <div className="container">
           <ImCodyOgden />
           <p>
@@ -15,7 +10,10 @@ export default function Header() {
           </p>
         </div>
         <style jsx>{`
-          overflow: hidden;
+          header {
+            box-sizing: border-box;
+            overflow: hidden;
+          }
           .container {
             display: flex;
             flex-flow: column nowrap;

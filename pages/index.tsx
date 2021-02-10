@@ -1,7 +1,7 @@
 import Head from 'next/head';
-import Header from '../components/Header';
-import BlogFeed from '../components/BlogFeed';
-import { getRecentPosts } from '../lib/blog';
+import SplashHeader from '@components/SplashHeader';
+import BlogFeed from '@components/BlogFeed';
+import { getRecentPosts } from '@lib/blog';
 
 export default function Home({ posts }: any) {
   return (
@@ -9,7 +9,7 @@ export default function Home({ posts }: any) {
       <Head>
         <title>Cody Ogden - Front End Software Engineer</title>
       </Head>
-      <Header />
+      <SplashHeader />
       <section>
         Where you can find me.
       </section>
@@ -21,7 +21,7 @@ export default function Home({ posts }: any) {
 export async function getStaticProps() {
   return {
     props: {
-      posts: await getRecentPosts({ limit: 3 }),
+      posts: await getRecentPosts({ limit: 4 }),
     },
   }
 }
