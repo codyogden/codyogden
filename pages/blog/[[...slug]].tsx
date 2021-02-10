@@ -1,17 +1,16 @@
 import Blog from '@components/Blog';
 import BlogPostSingle from '@components/BlogPostSingle';
-import { defaultLimit, getAllPosts, getPostBySlug, getRecentPosts } from '@lib/blog';
+import { getAllPosts, getPostBySlug } from '@lib/blog';
 
 export default function BlogPost(props): any {
     if(!props.slug)
-        return <Blog thePosts={props.posts} />;
+        return <Blog posts={props.posts} />;
     return <BlogPostSingle post={props.posts} />
 };
 
 export async function getStaticProps({ params }) {
     if (!params.slug) {
-        const posts = await getRecentPosts({ limit: defaultLimit });
-        console.log(posts);
+        const posts = await getAllPosts();
         return {
             props: {
                 slug: false,
