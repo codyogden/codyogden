@@ -1,75 +1,38 @@
-import { photoURL } from '@lib/cockpit';
+import { useState } from 'react';
 import { Photo } from 'interfaces/cockpit';
-
-const PhotoGridItem = (photo: Photo) => {
-    return (
-        <li>
-            <figure>
-                <img src={photoURL(photo.photo.path)} alt={photo.alt} />
-                {photo.description && <figcaption>{photo.description}</figcaption>}
-            </figure>
-            <style jsx>{`
-                figure {
-                    margin: 0;
-                    padding: 0;
-                    height: 100%;
-                    width: 100%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    position: relative;
-                }
-                figcaption {
-                    background-color: rgba(0,0,0,0.6);
-                    height: 100%;
-                    width: 100%;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    position: absolute;
-                    opacity: 0;
-                    transition: opacity 120ms linear;
-                    box-sizing: border-box;
-                    padding: 2rem;
-                    text-align: center;
-                    color: #ffffff;
-                    -webkit-font-smoothing: antialiased;
-                    -moz-osx-font-smoothing: grayscale;
-                }
-                @media screen and ( min-width: 799px ) {
-                    figure:hover figcaption {
-                        opacity: 1;
-                    }
-                }
-                li {
-                    margin: 0;
-                    padding: 0;
-                }
-                li:nth-child(6n+2) {
-                    grid-column: auto / span 2;
-                    grid-row: auto / span 2;
-                }
-                img {
-                    height: 100%;
-                    width: 100%;
-                    object-fit: cover;
-                    display: block;
-                }
-            `}</style>
-        </li>
-    );
-};
+import { PhotoGridItem } from './PhotoGridItem';
+import { PhotoGridModal } from './PhotoGridModal';
+import { photoURL } from '@lib/cockpit';
 
 interface PhotoGridProps {
     photos: Array<Photo>
 }
 
 export default function PhotoGrid({ photos }: PhotoGridProps) {
+    const [modal, updateModal] = useState({
+        active: false,
+        photo: null,
+    });
+
+    const showModal = (photo) => {
+        updateModal({
+            active: true,
+            photo
+        })
+    };
+
+    const closeModal = () => {
+        updateModal({
+            active: false,
+            photo: null
+        });
+    };
     return (
         <>
             <ul className="photo-grid">
-                {photos.map((photo: Photo) => <PhotoGridItem {...photo} key={photo._id} />)}
+                {photos.map((photo: Photo) => <PhotoGridItem clickHandler={showModal} photo={photo} key={photo._id} />)}
             </ul>
+            <PhotoGridModal {...modal} closeHandler={closeModal} />
             <style jsx>{`
                 .photo-grid {
                     list-style-type: none;
@@ -79,7 +42,6 @@ export default function PhotoGrid({ photos }: PhotoGridProps) {
                     padding: 4px;;
                     box-sizing: border-box;
                     gap: 4px;
-                    margin:  0 0 10rem 0;
                 }
                 @media screen and ( max-width: 800px ) {
                     .photo-grid {
