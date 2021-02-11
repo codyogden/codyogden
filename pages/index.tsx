@@ -2,27 +2,27 @@ import Head from 'next/head';
 import SplashHeader from '@components/SplashHeader';
 import BlogFeed from '@components/BlogFeed';
 import { getRecentPosts } from '@lib/blog';
-import { singletons } from '@lib/cockpit';
+import { collections, singletons } from '@lib/cockpit';
+import PhotoGrid from '@components/PhotoGrid';
+import Layout from '@components/Layout';
 
-export default function Home({ posts, blurb }: any) {
+export default function Home({ posts, photos }: any) {
   return (
-    <>
+    <Layout>
       <Head>
         <title>Cody Ogden - Software Engineer</title>
       </Head>
       <SplashHeader />
-      <section dangerouslySetInnerHTML={{__html: blurb}} />
-      <BlogFeed posts={posts} readMore />
-    </>
+    </Layout>
   )
 }
 
 export async function getStaticProps() {
-  const { blurb } = await fetch(singletons('blurbabout')).then(result => result.json());
+  const photos = await (fetch(collections('photos')).then(r => r.json()));
   return {
     props: {
-      blurb,
       posts: await getRecentPosts({ limit: 4 }),
+      photos: photos.entries,
     },
   }
 }

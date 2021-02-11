@@ -46,6 +46,7 @@ export default class ImCodyOgden extends Component {
       minHeight: '88px',
     };
     return (
+      <h1>
       <svg
         viewBox="0 0 471 93"
         className="imcodyogden_svg__done imcodyogden_svg__lazy-line-painter"
@@ -173,7 +174,14 @@ export default class ImCodyOgden extends Component {
           data-llp-delay={2300}
           display="block"
         />
-      </svg>
+        </svg>
+        <style jsx>{`
+          h1 {
+            margin: 0;
+            padding: 0;
+          }
+        `}</style>
+      </h1>
     );
   }
 }

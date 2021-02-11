@@ -26,6 +26,13 @@ export default function SplashHeader() {
             overflow: hidden;
             width: 100%;
           }
+          @media screen and ( max-width: 800px ) {
+            .container {
+              width: 90%;
+              margin-right: auto;
+              margin-left: auto;
+            }
+          }
           p {
               font-family: 'Indie Flower', sans-serif;
               font-size: 2rem;

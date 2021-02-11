@@ -1,11 +1,12 @@
 import Blog from '@components/Blog';
 import BlogPostSingle from '@components/BlogPostSingle';
+import Layout from '@components/Layout';
 import { getAllPosts, getPostBySlug } from '@lib/blog';
 
 export default function BlogPost(props): any {
     if(!props.slug)
-        return <Blog posts={props.posts} />;
-    return <BlogPostSingle post={props.posts} />
+        return <Layout><Blog posts={props.posts} /></Layout>;
+    return <Layout><BlogPostSingle post={props.posts} /></Layout>;
 };
 
 export async function getStaticProps({ params }) {

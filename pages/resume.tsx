@@ -1,20 +1,28 @@
 import Head from 'next/head';
-import formatDistance from 'date-fns/formatDistance';
-import { collections } from '@lib/cockpit';
+import { collections, photoURL } from '@lib/cockpit';
+import { Education, Position, Skill } from '@interface/cockpit';
+import Layout from '@components/Layout';
 
-export default function Home({ positions, education, skills }) {
+interface ResumeProps {
+  positions: Position[]
+  education: Education[]
+  skills: Skill[]
+}
+
+export default function Home({ positions, education, skills }: ResumeProps) {
+
   return (
-    <>
+    <Layout>
       <Head>
         <title>Cody Ogden - Resume</title>
       </Head>
       <section>
         <h3>Positions</h3>
         <ul className="ul-reset">
-          {positions.map(position => {
+          {positions.map((position: Position) => {
             return <li key={position._id}>
               <div>
-                {(position.company_icon.path) && <img className="company_icon" src={`${process.env.NEXT_PUBLIC_COCKPIT_URL}${position.company_icon.path}`} />}
+                {(position.company_icon.path) && <img className="company_icon" src={photoURL(position.company_icon.path)} />}
               </div>
               {(position.company_url) ? <a href={position.company_url} target="_blank" rel="noopener noreferrer">
                 {position.company}
@@ -31,7 +39,7 @@ export default function Home({ positions, education, skills }) {
       <section>
         <h3>Education</h3>
         <ul className="ul-reset">
-          {education.map((item) => {
+          {education.map((item: Education) => {
             return <li key={item._id} className="education__item">
               <div>{item.school}</div>
               <div>{item.type}, {item.major}</div>
@@ -43,9 +51,9 @@ export default function Home({ positions, education, skills }) {
         </ul>
       </section>
       <section>
-        <h3>Skills</h3>
+        <h3>Technical Skills</h3>
         <ul>
-          {skills.map((skill) => <li key={skill.slug}>{skill.name} {skill.date_started && formatDistance(new Date(), new Date(skill.date_started))}</li>)}
+          {skills.map((skill: Skill) => <li key={skill.slug}>{skill.name}</li>)}
         </ul>
       </section>
       <style jsx>{`
@@ -81,7 +89,7 @@ export default function Home({ positions, education, skills }) {
             }
           }
         `}</style>
-    </>
+    </Layout>
   )
 }
 
@@ -93,7 +101,7 @@ export async function getStaticProps() {
   const education = await fetch(collections('education'))
     .then(res => res.json());
 
-  const skills = await fetch(collections('skills'))
+  const skills= await fetch(collections('skills'))
     .then(res => res.json());
   
   return {
