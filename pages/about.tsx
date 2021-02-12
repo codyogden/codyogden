@@ -1,9 +1,13 @@
 import Layout from '@components/Layout';
 import { singletons } from '@lib/cockpit';
+import Head from 'next/head';
 
 export default function AboutPage({ blurb }) {
     return (
         <Layout>
+            <Head>
+                <title>{blurb.title} - Cody Ogden</title>
+            </Head>
             <section className="fw">
                 <h2>{blurb.title}</h2>
                 <div dangerouslySetInnerHTML={{ __html: blurb.html }}></div>
