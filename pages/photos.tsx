@@ -30,8 +30,6 @@ export default function PhotosPage({ photos, limit }) {
     useEffect(() => {
         window.addEventListener('scroll', function () {
             if ((document.documentElement.scrollTop + window.innerHeight) >= document.documentElement.scrollHeight) {
-                console.log("you're at the bottom of the page");
-                // Show loading spinner and make fetch request to api
                 loadMorePosts();
             }
         });
@@ -46,12 +44,12 @@ export default function PhotosPage({ photos, limit }) {
             <PhotoGrid photos={entries} />
             <div className="auto-scroll-end">
                 <img src="/images/icons/camera.svg" alt="camera icon" />
+                {(!isLoading && !loadButtonDisabled) && <p>Scroll to Load More</p>}
                 {(isLoading && !loadButtonDisabled) && <p>Loading</p>}
                 {loadButtonDisabled && <>
                     <p>That's all, folks!</p>
-                    <p><a href="#">Scroll to Top</a></p>
+                        <p><a href="#">Scroll to Top</a></p>
                 </>}
-                
             </div>
             <style jsx>{`
                 .auto-scroll-end {
