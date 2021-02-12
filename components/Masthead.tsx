@@ -1,4 +1,11 @@
+import MenuLinkContext from 'contexts/MenuLinkContext';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+
+const Nav = dynamic(import('@components/Menu/Nav'), { ssr: false });
+
+
+
 const menuLinks = [
     {
         path: '/about',
@@ -31,26 +38,26 @@ const menuLinks = [
         target: ''
     }
 ];
+
 export default function Masthead() {
     const router = useRouter();
+
     return (
-        <header className={(router.pathname === '/') && 'home'}>
+        <header className={(router.pathname === '/') ? 'home' : undefined}>
             <div className='home-link'>
                 {(router.pathname !== '/') && <a href="/">Cody Ogden</a>}
             </div>
-            <nav>
-                <ul>
-                    {menuLinks.map((link) => <li key={link.path}>
-                        <a href={link.path} className={(router.pathname === link.pathname) && 'current'} target={link.target}>{link.text}</a>
-                    </li>)}
-                </ul>
-            </nav>
+            <MenuLinkContext.Provider value={menuLinks}>
+                <Nav />
+            </MenuLinkContext.Provider>
             <style jsx>{`
                 header {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
                     width: 100%;
+                    padding: 1rem 1rem 0.5rem 1rem;
+                    box-sizing: border-box;
                 }
                 header.home {
                     position: absolute;
@@ -60,19 +67,8 @@ export default function Masthead() {
                 }
                 .home-link {
                     box-sizing: border-box;
-                    padding: 0 1rem;
                     font-family: 'Indie Flower', sans-serif;
                     font-size: 1.5rem;
-                }
-                ul {
-                    list-style-type: none;
-                    padding: 0;
-                    margin: 0;
-                    display: flex;
-                    align-items: center;
-                }
-                ul li {
-                    padding: 1rem 1rem;
                 }
                 a {
                     text-decoration: none;
