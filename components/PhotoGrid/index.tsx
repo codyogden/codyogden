@@ -37,16 +37,11 @@ export default function PhotoGrid({ photos }: PhotoGridProps) {
                 .photo-grid {
                     list-style-type: none;
                     display: grid;
-                    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+                    grid-template-columns: repeat(6, 1fr);
                     margin: 0;
                     padding: 4px;;
                     box-sizing: border-box;
                     gap: 4px;
-                }
-                @media screen and ( max-width: 800px ) {
-                    .photo-grid {
-                        grid-template-columns: 1fr 1fr 1fr;
-                    }
                 }
             `}</style>
         </>

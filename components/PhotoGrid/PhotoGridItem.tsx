@@ -47,18 +47,26 @@ export const PhotoGridItem = ({ clickHandler, photo }) => {
                     -webkit-font-smoothing: antialiased;
                     -moz-osx-font-smoothing: grayscale;
                 }
-                @media screen and ( min-width: 799px ) {
-                    figure:hover figcaption {
-                        opacity: 1;
-                    }
-                }
                 li {
                     margin: 0;
                     padding: 0;
                 }
-                li:nth-child(6n+2) {
-                    grid-column: auto / span 2;
-                    grid-row: auto / span 2;
+                li {
+                    grid-column: auto / span 3;
+                    grid-row: auto / span 3;
+                }
+                @media screen and ( min-width: 799px ) {
+                    figure:hover figcaption {
+                        opacity: 1;
+                    }
+                    li {
+                        grid-column: auto / span 1;
+                        grid-row: auto / span 1;
+                    }
+                    li:nth-child(6n+2) {
+                        grid-column: auto / span 2;
+                        grid-row: auto / span 2;
+                    }
                 }
                 img {
                     height: 100%;

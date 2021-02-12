@@ -29,12 +29,11 @@ export const PhotoGridModal = ({ closeHandler, active, photo }) => {
                 right: 0;
                 width: 100%;
                 height: 100%;
-                -webkit-backdrop-filter: blur(12px);
-                backdrop-filter: blur(8px);
                 display: none;
                 justify-content: center;
                 align-items: center;
                 opacity: 0;
+                background-color: rgba(255, 255, 255, .4);
             }
             .photo-modal-container.active {
                 opacity: 1;
@@ -42,6 +41,20 @@ export const PhotoGridModal = ({ closeHandler, active, photo }) => {
                 width: 100%;
                 height: 100%;
                 transition: opacity 300ms linear;
+            }
+            .photo-modal figure {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            @supports ((-webkit-backdrop-filter: blur(2em)) or (backdrop-filter: blur(2em))) {
+                .photo-modal-container {
+                    background-color: transparent;
+                    -webkit-backdrop-filter: blur(12px);
+                    backdrop-filter: blur(12px);
+                }
             }
             .modal-caption {
                 text-align: center;
