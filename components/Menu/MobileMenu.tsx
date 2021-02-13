@@ -1,10 +1,7 @@
-import MenuLinkContext from 'contexts/MenuLinkContext';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import useToggle from 'hooks/useToggle';
 import MenuList from './MenuList';
 export default function MobileMenu() {
-    const router = useRouter();
-    const [showMenu, toggleMenu] = useState(false);
+    const [showMenu, toggleMenu] = useToggle(false);
 
     const listStyles = {
         listStyleType: 'none',
@@ -25,13 +22,13 @@ export default function MobileMenu() {
 
     return (
         <div>
-            {!showMenu && <button className='menu-toggle open' onClick={() => toggleMenu(!showMenu)} aria-label="Open Main Menu">
+            {!showMenu && <button className='menu-toggle open' onClick={() => toggleMenu()} aria-label="Open Main Menu">
                 <img src="/images/icons/menu.svg" alt="menu icon" style={{ height: '1.5rem', width: '1.5rem' }} />
             </button>}
             {showMenu && <div className="mobile-menu-container">
                 <MenuList listStyles={listStyles} itemStyles={listItemStyles} linkStyles={linkStyles} />
                 <div className="close-container">
-                    <button className="menu-toggle close" onClick={() => toggleMenu(!showMenu)} aria-label="Close Main Menu">
+                    <button className="menu-toggle close" onClick={() => toggleMenu()} aria-label="Close Main Menu">
                         <img src="/images/icons/close.svg" alt="close icon" style={{ height: '1.5rem', width: '1.5rem' }} />
                     </button>
                 </div>

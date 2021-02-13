@@ -37,4 +37,7 @@ export interface Education extends CollectionItem {
   date_graduation: string
   major: string
   type: string
+  icon: {
+    path: string
+  }
 }
