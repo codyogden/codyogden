@@ -38,6 +38,6 @@ export async function getStaticProps() {
         props: {
             blurb,
         },
-        revalidate: 1
+        revalidate: 3600
     }
 }
