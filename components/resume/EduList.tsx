@@ -6,7 +6,7 @@ export default function EduList({ education }) {
         <ul className="ul-reset">
             {education.map((item: Education) => {
                 return <li key={item._id} className="education__item">
-                    <div>
+                    <div className="container-school_icon">
                         <img className="school_icon" src={photoURL(item.icon.path)} />
                     </div>
                     <div>
@@ -40,6 +40,9 @@ export default function EduList({ education }) {
                 .school_dates {
                     font-size: 0.9rem;
                     margin-top: 4px;
+                }
+                .container-school_icon {
+                    margin-right: 12px;
                 }
                 .school_icon {
                     display: block;

@@ -56,13 +56,13 @@ export default function PositionList({ positions }) {
                 .container-company_icon {
                     width: 24px;
                     height: 24px;
+                    margin-right: 12px;
                 }
                 img.company_icon {
                     height: 24px;
                     width: 24px;
                     object-fit: cover;
                     display: block;
-                    margin-right: 12px;
                 }
           `}</style>
         </ul>
