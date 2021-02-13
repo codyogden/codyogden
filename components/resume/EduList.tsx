@@ -27,7 +27,6 @@ export default function EduList({ education }) {
                 ul li {
                     display: flex;
                     margin: 2.5rem 0;
-                    gap: 12px;
                 }
                 .school_name {
                     font-weight: bold;
@@ -46,6 +45,7 @@ export default function EduList({ education }) {
                     display: block;
                     height: 24px;
                     width: 24px;
+                    margin-right: 12px;
                 }
             `}</style>
         </ul>

@@ -35,7 +35,6 @@ export default function PositionList({ positions }) {
                 ul li {
                     margin: 2.5rem 0;
                     display: flex;
-                    gap: 12px;
                 }
                 .company_title {
                     font-weight: bold;
@@ -63,6 +62,7 @@ export default function PositionList({ positions }) {
                     width: 24px;
                     object-fit: cover;
                     display: block;
+                    margin-right: 12px;
                 }
           `}</style>
         </ul>
