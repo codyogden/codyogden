@@ -37,6 +37,7 @@ export async function getStaticProps() {
     return {
         props: {
             blurb,
-        }
+        },
+        revalidate: 1
     }
 }
