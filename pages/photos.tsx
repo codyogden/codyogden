@@ -11,21 +11,24 @@ export default function PhotosPage({ photos, limit }) {
     const [entries, updatePosts] = useState(photos.entries);
     const [willLoadMore, toggleWillLoadMore] = useToggle(true);
     const [isLoading, toggleLoading] = useToggle();
+    const [delay, toggleDelay] = useToggle();
     const [skip, updateSkip] = useReducer((skip) => {
-        if(!isLoading)
+        if (!delay)
             return (skip + 12);
         return skip;
     }, 0);
 
     const loadMorePosts = async () => {
         toggleLoading();
+        toggleDelay();
         const newPosts = await fetch(collections('photos', { 'sort[_created]': -1, limit, skip, token: process.env.NEXT_PUBLIC_COCKPIT_PHOTOS_TOKEN })).then(results => results.json());
         updatePosts([
             ...entries,
             ...newPosts.entries
         ]);
         ([...entries, ...newPosts.entries].length >= newPosts.total) && toggleWillLoadMore();
-        setTimeout(toggleLoading, 2000);
+        toggleLoading();
+        setTimeout(toggleDelay, 100);
     };
 
     useEffect(() => {
@@ -39,8 +42,8 @@ export default function PhotosPage({ photos, limit }) {
     useEffect(() => {
         if(firstLoad)
             return toggleFirstLoad();
-        if(willLoadMore && !isLoading)
-            loadMorePosts();
+        if (willLoadMore && !delay)
+            setTimeout(loadMorePosts, 200);
     }, [skip]);
 
     return (
