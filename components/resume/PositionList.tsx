@@ -52,6 +52,12 @@ export default function PositionList({ positions }) {
                 .company_description {
                     margin-top: 0.5rem;
                     font-size: 0.9rem;
+                    line-height: 1.45;
+                }
+                @media screen and ( max-width: 800px ) {
+                    .company_description {
+                        margin: 1rem 0;
+                    }
                 }
                 .container-company_icon {
                     width: 24px;
@@ -65,6 +71,20 @@ export default function PositionList({ positions }) {
                     display: block;
                 }
           `}</style>
+            <style jsx global>{`
+                .company_description ul {
+                    list-style-type: disc;
+                }
+                @media screen and ( max-width: 800px ) {
+                    .company_description > ul {
+                        padding-left: 0;
+                        margin-left: 0;
+                    }
+                    .company_description > ul > li {
+                        margin: 6px 0 6px 0;
+                    }
+                }
+            `}</style>
         </ul>
     );
 }
