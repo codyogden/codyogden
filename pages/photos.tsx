@@ -16,7 +16,7 @@ export default function PhotosPage({ photos, limit }) {
     }, 0);
 
     const loadMorePosts = async () => {
-        
+        toggleLoading();
         const newPosts = await fetch(collections('photos', { 'sort[_created]': -1, limit, skip, token: process.env.NEXT_PUBLIC_COCKPIT_PHOTOS_TOKEN })).then(results => results.json());
         updatePosts([
             ...entries,
@@ -38,7 +38,7 @@ export default function PhotosPage({ photos, limit }) {
         if(firstLoad)
             return toggleFirstLoad();
         if(willLoadMore && !isLoading)
-            setTimeout(loadMorePosts, 1000);
+            loadMorePosts();
     }, [skip]);
 
     return (
