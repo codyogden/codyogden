@@ -1,39 +1,47 @@
 import Layout from '@components/Layout';
 import PhotoGrid from '@components/PhotoGrid';
 import { collections } from '@lib/cockpit';
+import useToggle from 'hooks/useToggle';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 
 
 export default function PhotosPage({ photos, limit }) {
-    const [page, incrementPage] = useState(1);
-    const [isLoading, updateLoading] = useState(false);
     const [entries, updatePosts] = useState(photos.entries);
-    const [loadButtonDisabled, disableButton] = useState(false);
+    const [willLoadMore, toggleWillLoadMore] = useToggle(true);
+    const [isLoading, toggleLoading] = useToggle();
+    const [firstLoad, toggleFirstLoad] = useToggle(true);
+    const [skip, updateSkip] = useReducer((skip) => {
+        return (skip + 12);
+    }, 0);
 
     const loadMorePosts = async () => {
-        updateLoading(true);
-        const newPosts = await fetch(collections('photos', { 'sort[_created]': -1, limit, skip: page * limit, token: process.env.NEXT_PUBLIC_COCKPIT_PHOTOS_TOKEN })).then(results => results.json());
+        toggleLoading();
+        const newPosts = await fetch(collections('photos', { 'sort[_created]': -1, limit, skip, token: process.env.NEXT_PUBLIC_COCKPIT_PHOTOS_TOKEN })).then(results => results.json());
         updatePosts([
             ...entries,
             ...newPosts.entries
         ]);
-        if ([...entries, ...newPosts.entries].length < newPosts.total) {
-            incrementPage(page+1);
-            updateLoading(false);
-        } else {
-            disableButton(true);
-            updateLoading(false);
-        }
+        ([...entries, ...newPosts.entries].length >= newPosts.total) && toggleWillLoadMore();
+        toggleLoading();
     };
 
     useEffect(() => {
         window.addEventListener('scroll', function () {
             if ((document.documentElement.scrollTop + window.innerHeight) >= document.documentElement.scrollHeight) {
-                loadMorePosts();
+                updateSkip();
             }
         });
     }, []);
+
+    useEffect(() => {
+        if(firstLoad)
+            return toggleFirstLoad();
+        if(willLoadMore)
+            loadMorePosts();
+    }, [skip]);
+
+
 
     return (
         <>
@@ -44,9 +52,9 @@ export default function PhotosPage({ photos, limit }) {
             <PhotoGrid photos={entries} />
             <div className="auto-scroll-end">
                 <img src="/images/icons/camera.svg" alt="camera icon" />
-                {(!isLoading && !loadButtonDisabled) && <p>Scroll to Load More</p>}
-                {(isLoading && !loadButtonDisabled) && <p>Loading</p>}
-                {loadButtonDisabled && <>
+                {(!isLoading && willLoadMore) && <p>Scroll to Load More</p>}
+                {(isLoading && willLoadMore) && <p>Loading</p>}
+                {!willLoadMore && <>
                     <p>That's all, folks!</p>
                         <p><a href="#">Scroll to Top</a></p>
                 </>}
@@ -54,7 +62,7 @@ export default function PhotosPage({ photos, limit }) {
             <style jsx>{`
                 .auto-scroll-end {
                     text-align: center;
-                    margin: 10rem 0 20rem 0;
+                    margin: 10rem 0 10rem 0;
                     font-family: 'Indie Flower', sans-serif;
                 }
                 .auto-scroll-end p {
