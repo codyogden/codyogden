@@ -12,7 +12,9 @@ export default function PhotosPage({ photos, limit }) {
     const [willLoadMore, toggleWillLoadMore] = useToggle(true);
     const [isLoading, toggleLoading] = useToggle();
     const [skip, updateSkip] = useReducer((skip) => {
-        return (skip + 12);
+        if(!isLoading)
+            return (skip + 12);
+        return skip;
     }, 0);
 
     const loadMorePosts = async () => {
@@ -23,7 +25,7 @@ export default function PhotosPage({ photos, limit }) {
             ...newPosts.entries
         ]);
         ([...entries, ...newPosts.entries].length >= newPosts.total) && toggleWillLoadMore();
-        toggleLoading();
+        setTimeout(toggleLoading, 2000);
     };
 
     useEffect(() => {
