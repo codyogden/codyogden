@@ -7,16 +7,16 @@ import { useEffect, useReducer, useState } from 'react';
 
 
 export default function PhotosPage({ photos, limit }) {
+    const [firstLoad, toggleFirstLoad] = useToggle(true);
     const [entries, updatePosts] = useState(photos.entries);
     const [willLoadMore, toggleWillLoadMore] = useToggle(true);
     const [isLoading, toggleLoading] = useToggle();
-    const [firstLoad, toggleFirstLoad] = useToggle(true);
     const [skip, updateSkip] = useReducer((skip) => {
         return (skip + 12);
     }, 0);
 
     const loadMorePosts = async () => {
-        toggleLoading();
+        
         const newPosts = await fetch(collections('photos', { 'sort[_created]': -1, limit, skip, token: process.env.NEXT_PUBLIC_COCKPIT_PHOTOS_TOKEN })).then(results => results.json());
         updatePosts([
             ...entries,
@@ -37,11 +37,9 @@ export default function PhotosPage({ photos, limit }) {
     useEffect(() => {
         if(firstLoad)
             return toggleFirstLoad();
-        if(willLoadMore)
-            loadMorePosts();
+        if(willLoadMore && !isLoading)
+            setTimeout(loadMorePosts, 1000);
     }, [skip]);
-
-
 
     return (
         <>
@@ -62,7 +60,7 @@ export default function PhotosPage({ photos, limit }) {
             <style jsx>{`
                 .auto-scroll-end {
                     text-align: center;
-                    margin: 10rem 0 10rem 0;
+                    margin: 5rem 0 20rem 0;
                     font-family: 'Indie Flower', sans-serif;
                 }
                 .auto-scroll-end p {
@@ -83,7 +81,7 @@ PhotosPage.getInitialProps = async () => {
     const limit = 12;
     const photos = await (fetch(collections('photos', { limit, 'sort[_created]': -1 })).then(r => r.json()));
     return {
-            photos,
-            limit
+        photos,
+        limit
     }
 }
