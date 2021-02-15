@@ -9,27 +9,15 @@ import { useEffect, useReducer, useState } from 'react';
 export default function PhotosPage({ photos, limit }) {
     const [firstLoad, toggleFirstLoad] = useToggle(true);
     const [entries, updatePosts] = useState(photos.entries);
-    const [willLoadMore, toggleWillLoadMore] = useToggle(true);
     const [isLoading, toggleLoading] = useToggle();
-    const [delay, toggleDelay] = useToggle();
+    const [willLoadMore, toggleWillLoadMore] = useToggle(true);
     const [skip, updateSkip] = useReducer((skip) => {
-        if (!delay)
-            return (skip + 12);
-        return skip;
+        if (isLoading)
+            return skip;
+        if (!willLoadMore)
+            return skip;
+        return skip + limit;
     }, 0);
-
-    const loadMorePosts = async () => {
-        toggleLoading();
-        toggleDelay();
-        const newPosts = await fetch(collections('photos', { 'sort[_created]': -1, limit, skip, token: process.env.NEXT_PUBLIC_COCKPIT_PHOTOS_TOKEN })).then(results => results.json());
-        updatePosts([
-            ...entries,
-            ...newPosts.entries
-        ]);
-        ([...entries, ...newPosts.entries].length >= newPosts.total) && toggleWillLoadMore();
-        toggleLoading();
-        setTimeout(toggleDelay, 100);
-    };
 
     useEffect(() => {
         window.addEventListener('scroll', function () {
@@ -39,30 +27,43 @@ export default function PhotosPage({ photos, limit }) {
         });
     }, []);
 
+    const loadMorePosts = async () => {
+        toggleLoading();
+        const newPosts = await fetch(collections('photos', {
+            'sort[_created]': -1,
+            limit,
+            skip,
+            token: process.env.NEXT_PUBLIC_COCKPIT_PHOTOS_TOKEN,
+        })).then((result) => result.json());
+        updatePosts([...entries, ...newPosts.entries]);
+        ([...entries, ...newPosts.entries].length >= newPosts.total) && toggleWillLoadMore();
+        toggleLoading();
+    };
+
     useEffect(() => {
-        if(firstLoad)
+        if (firstLoad)
             return toggleFirstLoad();
-        if (willLoadMore && !delay)
-            setTimeout(loadMorePosts, 200);
+        if(!isLoading && willLoadMore)
+            loadMorePosts();
     }, [skip]);
 
     return (
         <>
-        <Layout>
-            <Head>
-                <title>Photos - Cody Ogden</title>
-            </Head>
-            <PhotoGrid photos={entries} />
-            <div className="auto-scroll-end">
-                <img src="/images/icons/camera.svg" alt="camera icon" />
-                {(!isLoading && willLoadMore) && <p>Scroll to Load More</p>}
+            <Layout>
+                <Head>
+                    <title>Photos - Cody Ogden</title>
+                </Head>
+                <PhotoGrid photos={entries} />
+                <div className="auto-scroll-end">
+                    <img src="/images/icons/camera.svg" alt="camera icon" />
+                    {(!isLoading && willLoadMore) && <p>Scroll to Load More</p>}
                 {(isLoading && willLoadMore) && <p>Loading</p>}
                 {!willLoadMore && <>
                     <p>That's all, folks!</p>
                         <p><a href="#">Scroll to Top</a></p>
                 </>}
-            </div>
-            <style jsx>{`
+                </div>
+                <style jsx>{`
                 .auto-scroll-end {
                     text-align: center;
                     margin: 5rem 0 20rem 0;
@@ -77,7 +78,7 @@ export default function PhotosPage({ photos, limit }) {
                     font-family: 'Inter', sans-serif;
                 }
             `}</style>
-        </Layout>
+            </Layout>
         </>
     );
 }
