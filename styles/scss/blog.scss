@@ -1,0 +1,99 @@
+@use './variables';
+@use './kg-card';
+@use './prism';
+
+article.blog-post header,
+article.blog-post section,
+article.blog-post footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr min(65ch, 95%) 1fr 1fr;
+    & > * {
+        grid-column: 3 / 4;
+    }
+}
+
+article.blog-post section {
+    .kg-width-full {
+        grid-column: 1 / 6;
+    }
+    .kg-width-wide {
+        grid-column: 2 / 5;
+        @media screen and ( max-width: 65ch ) {
+            grid-column: 1 / 6;
+        }
+    }
+    blockquote {
+        color: variables.$gray-darkest;
+        font-size: 1.25rem;
+        line-height: 1.25;
+        margin: 0 0 1.66667rem;
+        position: relative;
+        background-color: lighten(#ededed, 2%);
+        border-left: 4px solid variables.$color-accent;
+        padding: 2rem 2rem;
+        box-sizing: border-box;
+
+        p {
+            margin-bottom: 0.83333rem;
+
+            &:last-child {
+            margin-bottom: 0;
+            }
+        }
+
+        small,
+        cite {
+            display: block;
+            font-size: 0.88889rem;
+            font-style: normal;
+            font-weight: normal;
+            letter-spacing: 3px;
+            margin-top: 1.11111rem;
+            text-transform: uppercase;
+        }
+    }
+}
+
+article {
+    header {
+        margin-top: 4rem;
+    }
+    h1 {
+        font-size: 2.25rem;
+        margin: 1rem 0;
+    }
+    time {
+        color: #a1a1a7;
+        font-size: 0.77778rem;
+        letter-spacing: 2px;
+        line-height: 1.5;
+        margin-bottom: 1.11111rem;
+        text-transform: uppercase;
+    }
+
+    .kg-embed-card {
+        width:100%;
+        position:relative;
+        padding:0;
+        padding-top: 56.25%;
+        margin-bottom: 0;
+    }
+    .kg-embed-card iframe,
+    .kg-embed-card object,
+    .kg-embed-card embed {
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+    }
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin-bottom: 0;
+    }
+}
+
+

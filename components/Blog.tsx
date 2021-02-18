@@ -1,7 +1,9 @@
 // import { useState } from 'react';
 import BlogFeed from '@components/BlogFeed';
+import Head from 'next/head';
 
 export default function Blog({ posts }) {
+    
     // const [page, incrementPage] = useState(2);
     // const [isLoading, updateLoading] = useState(false);
     // const [posts, updatePosts] = useState(thePosts);
@@ -27,6 +29,9 @@ export default function Blog({ posts }) {
 
     return (
         <>
+            <Head>
+                <title>Blog - Cody Ogden</title>
+            </Head>
             <BlogFeed posts={posts} />
             {/* {!loadButtonDisabled && <button onClick={loadMorePosts} disabled={loadButtonDisabled || isLoading}>
                 {(isLoading) ? 'Loading': 'Load More'}    

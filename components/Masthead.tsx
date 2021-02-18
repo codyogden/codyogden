@@ -13,6 +13,12 @@ const menuLinks = [
         text: 'About',
         target: ''
     },
+    {
+        path: '/blog',
+        pathname: '/blog/[[...slug]]',
+        text: 'Blog',
+        target: ''
+    },
     // {
     //     path: '/projects',
     //     pathname: '/projects/[[...slug]]',
@@ -31,12 +37,6 @@ const menuLinks = [
         text: 'Resume',
         target: ''
     },
-    // {
-    //     path: '/blog',
-    //     pathname: '/blog/[[...slug]]',
-    //     text: 'Blog',
-    //     target: ''
-    // }
 ];
 
 export default function Masthead() {
