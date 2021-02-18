@@ -1,5 +1,10 @@
 import Head from 'next/head';
 
+interface Tag {
+    id: string
+    name: string
+}
+
 interface BlogPostSingleProps {
     post: {
         title: string
@@ -8,10 +13,56 @@ interface BlogPostSingleProps {
         updated_at: string
         codeinjection_foot: string
         published_at: string
+        tags: Tag[]
     }
 }
 
+const PostTagItem = ({id, name}: Tag) => {
+    return (
+        <li key={id}>
+            <span>#</span>{name}
+        <style jsx>{`
+            li {
+                box-sizing: border-box;
+                padding: 0.25rem 0.5rem;
+                margin: 0.25rem;
+                background-color: #EDEDED;
+                font-size: 0.8rem;
+            }
+            li span {
+                margin-right: 1px;
+            }
+        `}</style>
+        </li>
+    );
+};
+const PostTags = ({ tags }) => {
+    if(!tags.length)
+        return <></>;
+    return (
+        <div>
+            <ul>
+                {tags.map((tag: Tag) => <PostTagItem {...tag} />)}
+            </ul>
+        <style jsx>{`
+            div {
+                display: flex;
+                align-items: center;
+            }
+            ul {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+                display: flex;
+                flex-flow: row wrap;
+            }
+        `}</style>
+        </div>
+    )
+};
+
 export default function BlogPostSingle({ post }: BlogPostSingleProps) {
+    console.log(post);
     return (
         <>
             <Head>
@@ -39,8 +90,7 @@ export default function BlogPostSingle({ post }: BlogPostSingleProps) {
                 </header>
                 <section dangerouslySetInnerHTML={{ __html: post.html }}></section>
                 <footer>
-                    <div>
-                    </div>
+                    <PostTags tags={post.tags} />
                 </footer>
             </article>
            {post.codeinjection_foot && <div dangerouslySetInnerHTML={{__html: post.codeinjection_foot}}></div>}

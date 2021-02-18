@@ -24,7 +24,8 @@ export async function getStaticProps({ params }) {
         props: {
             slug: params.slug,
             posts
-        }
+        },
+        revalidate: 3600
     };
 }
 
