@@ -71,22 +71,23 @@ article.blog-post {
         margin-bottom: 1.11111rem;
         text-transform: uppercase;
     }
+    .feature-image {
+        max-width: 100%;
+        display: block;
+    }
 
-    .kg-embed-card {
+    .video-embed-container {
         width:100%;
         position:relative;
         padding:0;
         padding-top: 56.25%;
-        margin-bottom: 0;
-    }
-    .kg-embed-card iframe,
-    .kg-embed-card object,
-    .kg-embed-card embed {
-        position:absolute;
-        top:0;
-        left:0;
-        width:100%;
-        height:100%;
+        iframe {
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%; 
+        }
     }
     h2,
     h3,
