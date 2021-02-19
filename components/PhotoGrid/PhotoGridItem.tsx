@@ -1,5 +1,4 @@
 import { photoURL } from '@lib/cockpit';
-import { Photo } from 'interfaces/cockpit';
 
 export const PhotoGridItem = ({ clickHandler, photo }) => {
     return (

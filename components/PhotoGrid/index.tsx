@@ -1,14 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Photo } from 'interfaces/cockpit';
 import { PhotoGridItem } from './PhotoGridItem';
 import { PhotoGridModal } from './PhotoGridModal';
-import { photoURL } from '@lib/cockpit';
+import { useRouter } from 'next/router';
 
 interface PhotoGridProps {
     photos: Array<Photo>
 }
 
-export default function PhotoGrid({ photos }: PhotoGridProps) {
+export default function PhotoGrid({ open, photos }: PhotoGridProps) {
+    const router = useRouter();
     const [modal, updateModal] = useState({
         active: false,
         photo: null,
@@ -18,7 +19,8 @@ export default function PhotoGrid({ photos }: PhotoGridProps) {
         updateModal({
             active: true,
             photo
-        })
+        });
+        router.replace(`/photos/[...id]`, `/photos/${photo._id}`, { shallow: true });
     };
 
     const closeModal = () => {
@@ -26,7 +28,14 @@ export default function PhotoGrid({ photos }: PhotoGridProps) {
             active: false,
             photo: null
         });
+        router.replace(`/photos/[...id]`, `/photos/`, { shallow: true });
     };
+
+    useEffect(() => {
+        if (open)
+            showModal(open);
+    },[]);
+
     return (
         <>
             <ul className="photo-grid">

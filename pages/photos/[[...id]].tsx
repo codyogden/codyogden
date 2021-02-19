@@ -1,12 +1,13 @@
 import Layout from '@components/Layout';
 import PhotoGrid from '@components/PhotoGrid';
-import { collections } from '@lib/cockpit';
+import { collections, collectionsItem } from '@lib/cockpit';
 import useToggle from 'hooks/useToggle';
+import { NextPageContext } from 'next';
 import Head from 'next/head';
 import { useEffect, useReducer, useState } from 'react';
 
 
-export default function PhotosPage({ photos, limit }) {
+export default function PhotosPage({ photos, limit, single }) {
     const [firstLoad, toggleFirstLoad] = useToggle(true);
     const [entries, updatePosts] = useState(photos.entries);
     const [isLoading, toggleLoading] = useToggle();
@@ -43,7 +44,7 @@ export default function PhotosPage({ photos, limit }) {
     useEffect(() => {
         if (firstLoad)
             return toggleFirstLoad();
-        if(!isLoading && willLoadMore)
+        if (!isLoading && willLoadMore)
             loadMorePosts();
     }, [skip]);
 
@@ -53,15 +54,15 @@ export default function PhotosPage({ photos, limit }) {
                 <Head>
                     <title>Photos - Cody Ogden</title>
                 </Head>
-                <PhotoGrid photos={entries} />
+                <PhotoGrid photos={entries} open={single.entries[0]} />
                 <div className="auto-scroll-end">
                     <img src="/images/icons/camera.svg" alt="camera icon" />
                     {(!isLoading && willLoadMore) && <p>Scroll to Load More</p>}
-                {(isLoading && willLoadMore) && <p>Loading</p>}
-                {!willLoadMore && <>
-                    <p>That's all, folks!</p>
+                    {(isLoading && willLoadMore) && <p>Loading</p>}
+                    {!willLoadMore && <>
+                        <p>That's all, folks!</p>
                         <p><a href="#">Scroll to Top</a></p>
-                </>}
+                    </>}
                 </div>
                 <style jsx>{`
                 .auto-scroll-end {
@@ -83,11 +84,29 @@ export default function PhotosPage({ photos, limit }) {
     );
 }
 
-PhotosPage.getInitialProps = async () => {
+export async function getServerSideProps(ctx: NextPageContext) {
+    console.log();
     const limit = 12;
     const photos = await (fetch(collections('photos', { limit, 'sort[_created]': -1 })).then(r => r.json()));
+    let single = false;
+    if (ctx.query.id) {
+        single = await (fetch(collectionsItem('photos'), {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                filter: {
+                    _id: ctx.query.id[0]
+                }
+            })
+        }).then(r => r.json()));
+    }
     return {
-        photos,
-        limit
+        props: {
+            photos,
+            limit,
+            single,
+        }
     }
 }
