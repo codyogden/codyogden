@@ -79,12 +79,10 @@ const PostTags = ({ tags }) => {
 };
 
 export default function BlogPostSingle({ post }: BlogPostSingleProps) {
-    console.log(post);
     useEffect(() => {
         const yts = document.querySelectorAll(`iframe[src^='https://www.youtube.com']`);
         yts.forEach((yt) => {
             const parent = yt.parentElement;
-            console.log(parent);
             const ytContainer = document.createElement('div');
             ytContainer.setAttribute('class', 'video-embed-container');
             ytContainer.appendChild(yt);

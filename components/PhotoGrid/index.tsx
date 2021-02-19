@@ -38,7 +38,6 @@ export default function PhotoGrid({ open, photos }: PhotoGridProps) {
     },[]);
 
     useEffect(() => {
-        console.log('modal', modal);
         if(modal.active) {
             document.querySelector('body').setAttribute('style', 'height: 100%; overflow: hidden');
         } else {

@@ -85,7 +85,6 @@ export default function PhotosPage({ photos, limit, single }) {
 }
 
 export async function getServerSideProps(ctx: NextPageContext) {
-    console.log();
     const limit = 12;
     const photos = await (fetch(collections('photos', { limit, 'sort[_created]': -1 })).then(r => r.json()));
     let single = false;
