@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 
 interface PhotoGridProps {
     photos: Array<Photo>
+    open: Photo | false
 }
 
 export default function PhotoGrid({ open, photos }: PhotoGridProps) {

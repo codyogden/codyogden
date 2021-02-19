@@ -54,7 +54,7 @@ export default function PhotosPage({ photos, limit, single }) {
                 <Head>
                     <title>Photos - Cody Ogden</title>
                 </Head>
-                <PhotoGrid photos={entries} open={single.entries[0]} />
+                <PhotoGrid photos={entries} open={(single.entries?.length) ? single.entries[0] : false} />
                 <div className="auto-scroll-end">
                     <img src="/images/icons/camera.svg" alt="camera icon" />
                     {(!isLoading && willLoadMore) && <p>Scroll to Load More</p>}
