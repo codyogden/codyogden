@@ -32,22 +32,19 @@ const Page = ({ title }) => {
   );
 }
 
-export async function screenshot(post) {
+export default async (req, res) => {
   const browser = await puppeteer.launch({
     defaultViewport: {
       width: 1200,
       height: 628,
-      deviceScaleFactor: 2
-    },
+      deviceScaleFactor: 2,
+    }
   });
   const page = await browser.newPage();
-  await page.setContent(renderToStaticMarkup(<Page title={post.title} />));
-  await page.screenshot({ path: `public/images/social/${post.id}.png` });
+  await page.setContent(renderToStaticMarkup(<Page title={req.query.text} />));
+  res.writeHead(200, null, { 'Content-Type': 'image/png' });
+  const buffer = await page.screenshot();
+  // @ts-ignore
+  res.end(Buffer.from(buffer, 'base64'));
   await browser.close();
-}
-
-export async function snap(posts: Array<any>) {
-  for(let i=0; i<posts.length; i++) {
-    await screenshot(posts[i]);
-  }
-}
+};
