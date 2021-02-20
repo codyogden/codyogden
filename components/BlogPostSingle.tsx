@@ -18,6 +18,7 @@ interface BlogPostSingleProps {
         codeinjection_foot: string
         feature_image: null | string
         html: string
+        id: string
         meta_description: string
         meta_title: null | string
         og_description: null | string
@@ -99,7 +100,7 @@ export default function BlogPostSingle({ post }: BlogPostSingleProps) {
                 <meta property="og:title" content={post.og_title ?? post.meta_title ?? post.title} />
                 <meta property="og:description" content={post.og_description ?? post.meta_description }/>
                 <meta property="og:url" content={`https://codyogden.com/blog/${post.slug}`} />
-                {(post.og_image || post.feature_image) && <meta property="og:image" content={post.og_image ?? post.feature_image} />}
+                <meta property="og:image" content={`https://codyogden.com/images/social/${post.id}.png`} />
                 <meta property="article:published_time" content={post.published_at} />
                 <meta property="article:modified_time" content={post.updated_at} />
                 {post.tags.map((tag) => <meta property="article:tag" content={tag.name} key={tag.slug} />)}
@@ -108,7 +109,7 @@ export default function BlogPostSingle({ post }: BlogPostSingleProps) {
                 <meta name="twitter:title" content={post.twitter_title ?? post.meta_title ?? post.title} />
                 <meta name="twitter:description" content={post.twitter_description ?? post.meta_description} />
                 <meta name="twitter:url" content={`https://codyogden.com/blog/${post.slug}`} />
-                {(post.twitter_image || post.feature_image ) && <meta property="twitter:image" content={post.twitter_image ?? post.feature_image} />}
+                <meta property="twitter:image" content={`https://codyogden.com/images/social/${post.id}.png`} />
                 <meta name="twitter:label1" content="Written by" />
                 <meta name="twitter:data1" content={post.authors[0].name} />
                 {post.tags.length && <meta name="twitter:label2" content="Filed under" />}

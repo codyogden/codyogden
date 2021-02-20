@@ -2,6 +2,7 @@ import Blog from '@components/Blog';
 import BlogPostSingle from '@components/BlogPostSingle';
 import Layout from '@components/Layout';
 import { getAllPosts, getPostBySlug } from '@lib/blog';
+import { screenshot } from '@lib/socialCard';
 
 export default function BlogPost(props): any {
     if(!props.slug)
@@ -20,6 +21,7 @@ export async function getStaticProps({ params }) {
         }
     }
     const posts = await getPostBySlug(params.slug);
+    await screenshot(posts);
     return {
         props: {
             slug: params.slug,
