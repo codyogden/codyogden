@@ -33,3 +33,7 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# Social Cards
+public/images/social/*
+!public/images/social/.gitkeep
