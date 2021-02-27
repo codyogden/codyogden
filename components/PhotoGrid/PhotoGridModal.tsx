@@ -17,9 +17,10 @@ export const PhotoGridModal = ({ closeHandler, active, photo }) => {
             <Head>
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:site" content="@codyogden" />
+                <meta name="twitter:creator" content="@codyogden"></meta>
                 <meta name="twitter:title" content={photo.description} />
                 <meta name="twitter:description" content={photo.alt} />
-                <meta name="twitter:image" content={photoURL(photo.photo.path)} />
+                <meta name="twitter:image:src" content={photoURL(photo.photo.path)} />
                 <meta property="og:title" content={photo.description} />
                 <meta property="og:url" content={`https://codyogden.com/photos/${photo._id}`} />
                 <meta property="og:description" content={photo.alt} />
