@@ -5,6 +5,7 @@ import useToggle from 'hooks/useToggle';
 import { NextPageContext } from 'next';
 import Head from 'next/head';
 import { useEffect, useReducer, useState } from 'react';
+import { Context } from 'vm';
 
 
 export default function PhotosPage({ photos, limit, single }) {
@@ -84,11 +85,11 @@ export default function PhotosPage({ photos, limit, single }) {
     );
 }
 
-export async function getServerSideProps(ctx: NextPageContext) {
+export async function getStaticProps({ params }) {
     const limit = 12;
     const photos = await (fetch(collections('photos', { limit, 'sort[_created]': -1 })).then(r => r.json()));
     let single = false;
-    if (ctx.query.id) {
+    if (params.id) {
         single = await (fetch(collectionsItem('photos'), {
             method: 'post',
             headers: {
@@ -96,7 +97,7 @@ export async function getServerSideProps(ctx: NextPageContext) {
             },
             body: JSON.stringify({
                 filter: {
-                    _id: ctx.query.id[0]
+                    _id: params.id[0]
                 }
             })
         }).then(r => r.json()));
@@ -107,5 +108,29 @@ export async function getServerSideProps(ctx: NextPageContext) {
             limit,
             single,
         }
+    }
+}
+
+export async function getStaticPaths() {
+    const photos = await fetch(collections('photos', { limit: -1 })).then(r => r.json());
+    const paths = photos.entries.reduce((paths, photo) => {
+        const newPath = {
+            params: {
+                id: [photo._id],
+            }
+        };
+        paths.push(newPath);
+        return paths;
+    }, []);
+    return {
+        paths: [
+            {
+                params: {
+                    id: false,
+                }
+            },
+            ...paths
+        ],
+        fallback: false,
     }
 }
