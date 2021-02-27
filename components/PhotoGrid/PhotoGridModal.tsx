@@ -1,4 +1,5 @@
 import { photoURL } from '@lib/cockpit';
+import Head from 'next/head';
 import { useState } from 'react';
 
 export const PhotoGridModal = ({ closeHandler, active, photo }) => {
@@ -13,6 +14,17 @@ export const PhotoGridModal = ({ closeHandler, active, photo }) => {
     };
     return (<>
         {active && <>
+            <Head>
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:site" content="@codyogden" />
+                <meta name="twitter:title" content={photo.description} />
+                <meta name="twitter:description" content={photo.alt} />
+                <meta name="twitter:image" content={photoURL(photo.photo.path)} />
+                <meta property="og:title" content={photo.description} />
+                <meta property="og:url" content={`https://codyogden.com/photos/${photo._id}`} />
+                <meta property="og:description" content={photo.alt} />
+                <meta property="og:image" content={photoURL(photo.photo.path)} />
+            </Head>
             <div className={['photo-modal-container', activeClass].join(' ')} onClick={closeModal}>
                 <div className="photo-modal">
                     <figure>
