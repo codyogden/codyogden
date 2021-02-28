@@ -58,12 +58,13 @@ export default function PhotosPage({ photos, limit, single }) {
                         <meta name="twitter:title" content={single.entries[0].description} />
                         <meta name="twitter:description" content={single.entries[0].alt} />
                         <meta name="twitter:image:src" content={photoURL(single.entries[0].photo.path)} />
-                        <meta name="twitter:image:alt" content={single.entries[0].photo.alt} />
+                        <meta name="twitter:image:alt" content={single.entries[0].alt} />
                         <meta name="twitter:image" content={photoURL(single.entries[0].photo.path)} />
                         <meta property="og:title" content={single.entries[0].description} />
                         <meta property="og:url" content={`https://codyogden.com/photos/${single.entries[0]._id}`} />
                         <meta property="og:description" content={single.entries[0].alt} />
                         <meta property="og:image" content={photoURL(single.entries[0].photo.path)} />
+                        <meta property="og:image:alt" content={photoURL(single.entries[0].photo.path)} />
                     </>}
                 </Head>
                 <PhotoGrid photos={entries} open={(single.entries?.length) ? single.entries[0] : false} />
