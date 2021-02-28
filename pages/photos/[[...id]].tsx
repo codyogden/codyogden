@@ -1,11 +1,10 @@
 import Layout from '@components/Layout';
 import PhotoGrid from '@components/PhotoGrid';
-import { collections, collectionsItem } from '@lib/cockpit';
+import { collections, collectionsItem, photoURL } from '@lib/cockpit';
 import useToggle from 'hooks/useToggle';
 import { NextPageContext } from 'next';
 import Head from 'next/head';
 import { useEffect, useReducer, useState } from 'react';
-import { Context } from 'vm';
 
 
 export default function PhotosPage({ photos, limit, single }) {
@@ -43,10 +42,8 @@ export default function PhotosPage({ photos, limit, single }) {
     };
 
     useEffect(() => {
-        if (firstLoad)
-            return toggleFirstLoad();
-        if (!isLoading && willLoadMore)
-            loadMorePosts();
+        toggleFirstLoad();
+        loadMorePosts();
     }, [skip]);
 
     return (
@@ -54,6 +51,19 @@ export default function PhotosPage({ photos, limit, single }) {
             <Layout>
                 <Head>
                     <title>Photos - Cody Ogden</title>
+                    {single && <>
+                        <meta name="twitter:card" content="summary_large_image" />
+                        <meta name="twitter:site" content="@codyogden" />
+                        <meta name="twitter:creator" content="@codyogden"></meta>
+                        <meta name="twitter:title" content={single.entries[0].description} />
+                        <meta name="twitter:description" content={single.entries[0].alt} />
+                        <meta name="twitter:image:src" content={photoURL(single.entries[0].photo.path)} />
+                        <meta name="twitter:image" content={photoURL(single.entries[0].photo.path)} />
+                        <meta property="og:title" content={single.entries[0].description} />
+                        <meta property="og:url" content={`https://codyogden.com/photos/${single.entries[0]._id}`} />
+                        <meta property="og:description" content={single.entries[0].alt} />
+                        <meta property="og:image" content={photoURL(single.entries[0].photo.path)} />
+                    </>}
                 </Head>
                 <PhotoGrid photos={entries} open={(single.entries?.length) ? single.entries[0] : false} />
                 <div className="auto-scroll-end">
@@ -104,7 +114,9 @@ export async function getStaticProps({ params }) {
     }
     return {
         props: {
-            photos,
+            photos: {
+                entries: []
+            },
             limit,
             single,
         }
@@ -131,6 +143,6 @@ export async function getStaticPaths() {
             },
             ...paths
         ],
-        fallback: false,
+        fallback: 'blocking',
     }
 }
