@@ -18,7 +18,7 @@ export default function PhotosPage({ photos, limit, single }) {
         if (!willLoadMore)
             return skip;
         return skip + limit;
-    }, 0);
+    }, 12);
 
     useEffect(() => {
         window.addEventListener('scroll', function () {
@@ -58,6 +58,7 @@ export default function PhotosPage({ photos, limit, single }) {
                         <meta name="twitter:title" content={single.entries[0].description} />
                         <meta name="twitter:description" content={single.entries[0].alt} />
                         <meta name="twitter:image:src" content={photoURL(single.entries[0].photo.path)} />
+                        <meta name="twitter:image:alt" content={single.entries[0].photo.alt} />
                         <meta name="twitter:image" content={photoURL(single.entries[0].photo.path)} />
                         <meta property="og:title" content={single.entries[0].description} />
                         <meta property="og:url" content={`https://codyogden.com/photos/${single.entries[0]._id}`} />
@@ -114,9 +115,7 @@ export async function getStaticProps({ params }) {
     }
     return {
         props: {
-            photos: {
-                entries: []
-            },
+            photos,
             limit,
             single,
         }
