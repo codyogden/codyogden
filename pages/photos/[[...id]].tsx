@@ -144,5 +144,6 @@ export async function getStaticPaths() {
             ...paths
         ],
         fallback: 'blocking',
+        revalidate: 10
     }
 }
