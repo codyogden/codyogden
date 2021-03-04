@@ -119,7 +119,8 @@ export async function getStaticProps({ params }) {
             photos,
             limit,
             single,
-        }
+        },
+        revalidate: 10,
     }
 }
 
@@ -143,7 +144,6 @@ export async function getStaticPaths() {
             },
             ...paths
         ],
-        fallback: 'blocking',
-        revalidate: 10
+        fallback: 'blocking'
     }
 }
