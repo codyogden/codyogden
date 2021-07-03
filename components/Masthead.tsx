@@ -13,12 +13,12 @@ const menuLinks = [
         text: 'About',
         target: ''
     },
-    // {
-    //     path: '/blog',
-    //     pathname: '/blog/[[...slug]]',
-    //     text: 'Blog',
-    //     target: ''
-    // },
+    {
+        path: '/blog',
+        pathname: '/blog/[[...slug]]',
+        text: 'Blog',
+        target: ''
+    },
     // {
     //     path: '/projects',
     //     pathname: '/projects/[[...slug]]',

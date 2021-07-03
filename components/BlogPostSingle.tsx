@@ -1,5 +1,7 @@
 import Head from 'next/head';
 import { useEffect } from 'react';
+import { getAllPosts } from '@lib/blog';
+import BlogFeed from './BlogFeed';
 
 interface Tag {
     id: string
@@ -13,7 +15,8 @@ interface Author {
 }
 
 interface BlogPostSingleProps {
-    post: {
+    posts: any[]
+    single: {
         authors: Array<Author>
         codeinjection_foot: string
         feature_image: null | string
@@ -78,7 +81,7 @@ const PostTags = ({ tags }) => {
     )
 };
 
-export default function BlogPostSingle({ post }: BlogPostSingleProps) {
+export default function BlogPostSingle({ single, posts }: BlogPostSingleProps) {
     useEffect(() => {
         const yts = document.querySelectorAll(`iframe[src^='https://www.youtube.com']`);
         yts.forEach((yt) => {
@@ -92,40 +95,40 @@ export default function BlogPostSingle({ post }: BlogPostSingleProps) {
     return (
         <>
             <Head>
-                <title>{post.title} - Cody Ogden</title>
-                <meta name="description" content={post.meta_description} />
+                <title>{single.title} - Cody Ogden</title>
+                <meta name="description" content={single.meta_description} />
                 <meta property="og:site_name" content="Cody Ogden" />
                 <meta property="og:type" content="article" />
-                <meta property="og:title" content={post.og_title ?? post.meta_title ?? post.title} />
-                <meta property="og:description" content={post.og_description ?? post.meta_description }/>
-                <meta property="og:url" content={`https://codyogden.com/blog/${post.slug}`} />
-                {(post.og_image || post.feature_image) && <meta property="og:image" content={post.og_image ?? post.feature_image} />}
-                <meta property="article:published_time" content={post.published_at} />
-                <meta property="article:modified_time" content={post.updated_at} />
-                {post.tags.map((tag) => <meta property="article:tag" content={tag.name} key={tag.slug} />)}
+                <meta property="og:title" content={single.og_title ?? single.meta_title ?? single.title} />
+                <meta property="og:description" content={single.og_description ?? single.meta_description }/>
+                <meta property="og:url" content={`https://codyogden.com/blog/${single.slug}`} />
+                {(single.og_image || single.feature_image) && <meta property="og:image" content={single.og_image ?? single.feature_image} />}
+                <meta property="article:published_time" content={single.published_at} />
+                <meta property="article:modified_time" content={single.updated_at} />
+                {single.tags.map((tag) => <meta property="article:tag" content={tag.name} key={tag.slug} />)}
                 {/* Twitter */}
                 <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content={post.twitter_title ?? post.meta_title ?? post.title} />
-                <meta name="twitter:description" content={post.twitter_description ?? post.meta_description} />
-                <meta name="twitter:url" content={`https://codyogden.com/blog/${post.slug}`} />
-                {(post.twitter_image || post.feature_image ) && <meta property="twitter:image" content={post.twitter_image ?? post.feature_image} />}
+                <meta name="twitter:title" content={single.twitter_title ?? single.meta_title ?? single.title} />
+                <meta name="twitter:description" content={single.twitter_description ?? single.meta_description} />
+                <meta name="twitter:url" content={`https://codyogden.com/blog/${single.slug}`} />
+                {(single.twitter_image || single.feature_image ) && <meta property="twitter:image" content={single.twitter_image ?? single.feature_image} />}
                 <meta name="twitter:label1" content="Written by" />
-                <meta name="twitter:data1" content={post.authors[0].name} />
-                {post.tags.length && <meta name="twitter:label2" content="Filed under" />}
-                {post.tags.length && <meta name="twitter:data2" content={post.tags.reduce((prev, tag) => { prev.push(tag.name); return prev; }, []).join(', ')} />}
-                <meta name="twitter:site" content={post.authors[0].twitter} />
-                <meta name="twitter:creator" content={post.authors[0].twitter} />
+                <meta name="twitter:data1" content={single.authors[0].name} />
+                {single.tags.length && <meta name="twitter:label2" content="Filed under" />}
+                {single.tags.length && <meta name="twitter:data2" content={single.tags.reduce((prev, tag) => { prev.push(tag.name); return prev; }, []).join(', ')} />}
+                <meta name="twitter:site" content={single.authors[0].twitter} />
+                <meta name="twitter:creator" content={single.authors[0].twitter} />
             </Head>
             <main className="post-single">
             <article className="blog-post">
                 <header>
                     <div>
-                            <time className="published" dateTime={new Date(post.published_at).toLocaleString('en-CA', {
+                            <time className="published" dateTime={new Date(single.published_at).toLocaleString('en-CA', {
                                 month: 'numeric',
                                 day: 'numeric',
                                 year: 'numeric'
                             })}>
-                                {new Date(post.published_at).toLocaleString('en', {
+                                {new Date(single.published_at).toLocaleString('en', {
                                     month: 'long',
                                     day: 'numeric',
                                     year: 'numeric'
@@ -133,15 +136,18 @@ export default function BlogPostSingle({ post }: BlogPostSingleProps) {
                             
                         </time>
                     </div>
-                    <h1>{post.title}</h1>
-                    {post.feature_image && <img className="feature-image" src={post.feature_image} />}
+                    <h1>{single.title}</h1>
+                    {single.feature_image && <img className="feature-image" src={single.feature_image} />}
                 </header>
-                <section dangerouslySetInnerHTML={{ __html: post.html }}></section>
+                <section dangerouslySetInnerHTML={{ __html: single.html }}></section>
                 <footer>
-                    {/* <PostTags tags={post.tags} /> */}
+                    {/* <PostTags tags={single.tags} /> */}
                 </footer>
             </article>
-           {post.codeinjection_foot && <div dangerouslySetInnerHTML={{__html: post.codeinjection_foot}}></div>}
+            {single.codeinjection_foot && <div dangerouslySetInnerHTML={{__html: single.codeinjection_foot}}></div>}
+            <div>
+                <BlogFeed posts={posts} />
+            </div>
             </main>
         </>
     );

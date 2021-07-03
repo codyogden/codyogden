@@ -2,6 +2,50 @@
 @use './kg-card';
 @use './prism';
 
+ul.blogFeed {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: min(75ch, 95%);
+    gap: 12px;
+    @media screen and ( max-width: 700px ) {
+        display: block;
+    }
+    img {
+        $size: 100px;
+        width: $size;
+        height: $size;
+        object-fit: cover;
+        display: block;
+    }
+    li {
+        margin: 8px 0;
+        box-sizing: border-box;
+        a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            text-decoration: none;
+            background-color: #fff;
+            border: 2px solid transparent;
+            transition: border 120ms linear;
+            & > div > div {
+                font-size: 1.1rem;
+            }
+            time {
+                color: #212121;
+                font-size: 0.8rem;
+            }
+            &:hover {
+                border: 2px solid #eee;
+            }
+        }
+    }
+}
+
 article.blog-post header,
 article.blog-post section,
 article.blog-post footer {
@@ -53,9 +97,11 @@ article.blog-post section {
         }
     }
 }
-
+main.post-single {
+    margin-bottom: 100px;
+}
 article.blog-post {
-    margin-bottom: 20rem;
+    margin-bottom: 100px;
     header {
         margin-top: 1rem;
     }
