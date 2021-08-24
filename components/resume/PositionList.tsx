@@ -22,7 +22,6 @@ export default function PositionList({ positions }) {
                                 year: 'numeric',
                             }) : (position.current) && 'Present'}
                         </div>
-                        {position.description && <div className="company_description" dangerouslySetInnerHTML={{ __html: position.description }} />}
                     </div>
                 </li>;
             })}
