@@ -30,14 +30,7 @@ export async function getStaticPaths() {
         }
     });
     return {
-        paths: [
-            {
-                params: {
-                    slug: false,
-                }
-            },
-            ...paths
-        ],
+        ...paths,
         fallback: false,
     }
 }
