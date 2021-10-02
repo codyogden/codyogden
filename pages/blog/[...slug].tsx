@@ -18,3 +18,26 @@ export async function getStaticProps({ params }) {
         revalidate: 600
     };
 }
+
+
+export async function getStaticPaths() {
+    const posts = await getAllPosts();
+    const paths = posts.map((post) => {
+        return {
+            params: {
+                slug: [post.slug],
+            }
+        }
+    });
+    return {
+        paths: [
+            {
+                params: {
+                    slug: false,
+                }
+            },
+            ...paths
+        ],
+        fallback: false,
+    }
+}
