@@ -5,7 +5,7 @@ interface BlogFeedProps {
   limit?: number
 }
 
-export default function BlogFeed({ posts, readMore, description, limit }: BlogFeedProps) {
+export default function BlogFeed({ posts, readMore, description }: BlogFeedProps) {
   return(
     <ul className="blogFeed">
       {posts.map((post, index) => <li key={index}><article>

@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import { useEffect } from 'react';
-import { getAllPosts } from '@lib/blog';
 import BlogFeed from './BlogFeed';
 
 interface Tag {

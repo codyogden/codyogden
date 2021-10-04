@@ -57,6 +57,8 @@ article.blog-post footer {
 }
 
 article.blog-post section {
+    line-height: 2;
+    font-size: 1rem;
     .kg-width-full {
         grid-column: 1 / 6;
     }
@@ -143,7 +145,7 @@ article.blog-post {
         margin-bottom: 0;
     }
     p {
-        line-height: 1.55;
+        line-height: 2;
     }
 }
 
