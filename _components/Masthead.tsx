@@ -2,7 +2,7 @@ import MenuLinkContext from 'contexts/MenuLinkContext';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
-const Nav = dynamic(import('@components/Menu/Nav'), { ssr: false });
+const Nav = dynamic(import('_components/Menu/Nav'), { ssr: false });
 
 
 

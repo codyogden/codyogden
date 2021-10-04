@@ -1,10 +1,10 @@
 import Head from 'next/head';
 import { collections } from '@lib/cockpit';
 import { Education, Position, Skill } from '@interface/cockpit';
-import Layout from '@components/Layout';
-import PositionList from '@components/resume/PositionList';
-import EduList from '@components/resume/EduList';
-import SkillsList from '@components/resume/SkillsList';
+import Layout from '_components/Layout';
+import PositionList from '_components/resume/PositionList';
+import EduList from '_components/resume/EduList';
+import SkillsList from '_components/resume/SkillsList';
 
 interface ResumeProps {
   positions: Position[]

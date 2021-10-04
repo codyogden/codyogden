@@ -12,7 +12,7 @@
     "noEmit": true,
     "paths": {
       "@components/*": [
-        "components/*"
+        "_components/*"
       ],
       "@lib/*": [
         "lib/*"

@@ -1,4 +1,4 @@
-import Layout from '@components/Layout';
+import Layout from '_components/Layout';
 import { singletons } from '@lib/cockpit';
 import Head from 'next/head';
 

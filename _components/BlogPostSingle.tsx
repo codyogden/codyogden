@@ -1,86 +1,14 @@
 import Head from 'next/head';
 import { useEffect } from 'react';
 import BlogFeed from './BlogFeed';
+import { PostOrPage } from '@tryghost/content-api';
 
-interface Tag {
-    id: string
-    name: string
-    slug: string
+interface Props {
+    single: PostOrPage
+    posts: PostOrPage[]
 }
 
-interface Author {
-    name: string
-    twitter: string
-}
-
-interface BlogPostSingleProps {
-    posts: any[]
-    single: {
-        authors: Array<Author>
-        codeinjection_foot: string
-        feature_image: null | string
-        html: string
-        meta_description: string
-        meta_title: null | string
-        og_description: null | string
-        og_image: null | string
-        og_title: null | string
-        published_at: string
-        slug: string
-        tags: Tag[]
-        title: string
-        updated_at: string
-        twitter_description: null | string
-        twitter_image: null | string
-        twitter_title: null | string
-    }
-}
-
-const PostTagItem = ({id, name}: Tag) => {
-    return (
-        <li key={id}>
-            <span>#</span>{name}
-        <style jsx>{`
-            li {
-                box-sizing: border-box;
-                padding: 0.25rem 0.5rem;
-                margin: 0.25rem;
-                background-color: #EDEDED;
-                font-size: 0.8rem;
-            }
-            li span {
-                margin-right: 1px;
-            }
-        `}</style>
-        </li>
-    );
-};
-const PostTags = ({ tags }) => {
-    if(!tags.length)
-        return <></>;
-    return (
-        <div>
-            <ul>
-                {tags.map((tag: Tag) => <PostTagItem {...tag} />)}
-            </ul>
-        <style jsx>{`
-            div {
-                display: flex;
-                align-items: center;
-            }
-            ul {
-                list-style-type: none;
-                padding: 0;
-                margin: 0;
-                display: flex;
-                flex-flow: row wrap;
-            }
-        `}</style>
-        </div>
-    )
-};
-
-export default function BlogPostSingle({ single, posts }: BlogPostSingleProps) {
+export default function BlogPostSingle({ single, posts }: Props) {
     useEffect(() => {
         const yts = document.querySelectorAll(`iframe[src^='https://www.youtube.com']`);
         yts.forEach((yt) => {

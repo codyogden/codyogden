@@ -1,5 +1,5 @@
-import Layout from '@components/Layout';
-import PhotoGrid from '@components/PhotoGrid';
+import Layout from '_components/Layout';
+import PhotoGrid from '_components/PhotoGrid';
 import { collections, collectionsItem, photoURL } from '@lib/cockpit';
 import useToggle from 'hooks/useToggle';
 import { NextPageContext } from 'next';

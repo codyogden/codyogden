@@ -1,11 +1,13 @@
-interface BlogFeedProps {
-  posts: Array<any>
+import { PostOrPage } from '@tryghost/content-api';
+
+interface Props {
+  posts: PostOrPage[]
   readMore?: Boolean
   description?: Boolean
   limit?: number
 }
 
-export default function BlogFeed({ posts, readMore, description }: BlogFeedProps) {
+export default function BlogFeed({ posts, readMore, description }: Props) {
   return(
     <ul className="blogFeed">
       {posts.map((post, index) => <li key={index}><article>
