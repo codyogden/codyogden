@@ -25,12 +25,12 @@ const menuLinks = [
     //     text: 'Projects',
     //     target: ''
     // },
-    {
-        path: '/photos',
-        pathname: '/photos',
-        text: 'Photos',
-        target: ''
-    },
+//     {
+//         path: '/photos',
+//         pathname: '/photos',
+//         text: 'Photos',
+//         target: ''
+//     },
     {
         path: '/resume',
         pathname: '/resume',
