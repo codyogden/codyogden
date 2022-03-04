@@ -108,11 +108,6 @@ interface BlogAttributes {
     published: boolean;
 }
 
-interface MarkdownImport {
-    attributes: BlogAttributes;
-    html: string;
-}
-
 interface BlogProps extends BlogAttributes {
     slug: string;
     content: string;
@@ -148,8 +143,6 @@ export const getStaticProps = async () => {
             const b_date = new Date(b.date_published);
             return (a_date > b_date) ? -1 : (b_date < a_date) ? 1 : 0;
         });
-
-    console.log(html.split('</h2>')[1].split('<!--START_WRITINGS-->')[0]);
 
     return {
         props: {
