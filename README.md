@@ -6,7 +6,7 @@ I live in [Minneapolis, Minnesota](https://en.wikipedia.org/wiki/Minneapolis) wi
 
 Follow me on [Twitter](https://twitter.com/codyogden). Check out my [GitHub](https://github.com/codyogden). Connect with me on [LinkedIn](https://linkedin.com/in/codyogden).
 
-<!--WRITINGS-->
+<!--START_WRITINGS-->
 ## Writings
-- [Finding California](https://codyogden.com/blog/finding-california) (10 October 2021)
-<!--WRITINGS-->
+- [Finding California](https://codyogden.com/blog/finding-california)
+<!--END_WRITINGS-->

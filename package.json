@@ -22,7 +22,7 @@
   },
   "scripts": {
     "build": "next build",
-    "build:readme": "bin/readme",
+    "build:readme": "bin/readme && git add README.md",
     "export": "next export",
     "start": "next start",
     "dev": "next dev"
