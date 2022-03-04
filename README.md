@@ -5,3 +5,8 @@ I've been crafting on the web since 2001, and it all started with a JavaScript p
 I live in [Minneapolis, Minnesota](https://en.wikipedia.org/wiki/Minneapolis) with my black goldendoodle, [Olly](https://www.instagram.com/ollyoxendoodle/).
 
 Follow me on [Twitter](https://twitter.com/codyogden). Check out my [GitHub](https://github.com/codyogden). Connect with me on [LinkedIn](https://linkedin.com/in/codyogden).
+
+<!--WRITINGS-->
+## Writings
+- <span style="font-size: 0.9rem">10 October 2021</span><br/><span style="font-size: 1.5rem">[Finding California](/src/content/blog/finding-california.md)</span>
+<!--WRITINGS-->

@@ -151,7 +151,7 @@ export const getStaticProps = async () => {
 
     return {
         props: {
-            content: html.split('</h2>')[1],
+            content: html.split('</h2>')[1].split('<!--WRITINGS-->')[0],
             posts,
         }
     }
