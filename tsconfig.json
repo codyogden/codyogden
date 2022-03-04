@@ -1,31 +1,37 @@
 {
   "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
-    "baseUrl": "./",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "lib": ["dom","dom.iterable","esnext"],
-    "module": "esnext",
-    "moduleResolution": "node",
-    "noEmit": true,
-    "paths": {
-      "@components/*": [
-        "_components/*"
-      ],
-      "@lib/*": [
-        "lib/*"
-      ],
-      "@interface/*": [
-        "interfaces/*"
-      ]
-    },
-    "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": false,
-    "target": "es5"
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "incremental": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "baseUrl": "./",
+    "paths": {
+        "@components": ["src/components/index"],
+        "@content/*": ["src/content/*"]
+    }
   },
-  "include": ["**/*.ts","**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "README.md",
+    "src/content/**/*.md"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
