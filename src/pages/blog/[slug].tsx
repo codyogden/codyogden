@@ -4,27 +4,50 @@ import { readdirSync, readFileSync } from 'fs';
 import { resolve } from 'path';
 import { format } from 'date-fns';
 import {default as parseMarkdown} from 'front-matter-markdown';
+import Head from 'next/head';
 
 interface Props extends NextPageContext {
+    slug: string;
     title: string;
     image: string;
     image_alt: string;
     content: string;
     date_published: string;
+    meta: any;
 }
 
 const BlogPost: NextPage<Props> = ({
+    slug,
     title,
     image,
     image_alt,
     content,
     date_published,
+    meta,
 }) => {
-    console.log(date_published.split('T')[0]);
     return <Layout>
-        <article
-            className='blog-post'
-        >
+        <Head>
+            <title>{title} - Cody Ogden</title>
+            <meta name="description" content={meta.description} />
+            <meta property="og:site_name" content="Cody Ogden" />
+            <meta property="og:type" content="article" />
+            <meta property="og:title" content={title} />
+            <meta property="og:description" content={meta.description} />
+            <meta property="og:url" content={`https://codyogden.com/blog/${slug}`} />
+            <meta property="og:image" content={`https://codyogden.com${image}`} />
+            <meta property="article:published_time" content={new Date(date_published).toString()} />
+            <meta property="article:modified_time" content={new Date(date_published).toString()} />
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content={title} />
+            <meta name="twitter:description" content={meta.description} />
+            <meta name="twitter:url" content={`https://codyogden.com/blog/${slug}`} />
+            <meta property="twitter:image" content={`https://codyogden.com${image}`} />
+            <meta name="twitter:label1" content="Written by" />
+            <meta name="twitter:data1" content="Cody Ogden" />
+            <meta name="twitter:site" content="@codyogden" />
+            <meta name="twitter:creator" content="@codyogden" />
+        </Head>
+        <article className='blog-post'>
             <header>
                 <div>
                     <time

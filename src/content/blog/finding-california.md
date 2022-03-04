@@ -1,9 +1,11 @@
 ---
 title: Finding California
 date_published: 10/10/2021
-image: https://cjo.me/blog/2021/10/alexis-tuil-xEb3221ffcI-unsplash.jpg
+image: /blog/finding-california.jpg
 image_alt: 
 published: true
+meta:
+    description: We hadn't heard anything from California for nearly a month. My friend and mentor was 19 years old, and he had died.
 ---
 On a sunny, Tuesday afternoon in June of 2006, my sixteen-year-old self logged online to lurk around the multitude of forum communities I participated in at the time. It was my natural spot: planted at the computer, typing, laughing at jokes, finding and [hotlinking](https://en.wikipedia.org/wiki/Inline_linking) low-resolution GIFs as bulletin board replies. Even having some serious discussions around coding. Forum signatures with graphics were all the rage. I'd discovered PHP and had given myself the ability to serve a random signature file from a single URL.
 
