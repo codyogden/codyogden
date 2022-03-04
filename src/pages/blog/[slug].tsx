@@ -5,6 +5,7 @@ import { resolve } from 'path';
 import { format } from 'date-fns';
 import {default as parseMarkdown} from 'front-matter-markdown';
 import Head from 'next/head';
+import Image from 'next/image';
 
 interface Props extends NextPageContext {
     slug: string;
@@ -71,8 +72,7 @@ const BlogPost: NextPage<Props> = ({
                     }}
                 >{title}</h1>
             <div>
-                {/* eslint-disable-next-line */}
-                <img
+                <Image
                     className='feature-image'
                     src={image}
                     alt={image_alt}
