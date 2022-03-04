@@ -4,6 +4,7 @@ import { readdirSync } from 'fs';
 import { resolve } from 'path';
 import Link from 'next/link';
 import { format } from 'date-fns';
+import Head from 'next/head';
 
 interface Props extends NextPageContext {
     content: string;
@@ -15,6 +16,9 @@ const IndexPage: NextPage<Props> = ({
     posts,
 }) => {
     return <Layout>
+        <Head>
+            <title>Cody Ogden</title>
+        </Head>
         <Splash
             css={{
                 margin: '10rem 0 2rem 0',
