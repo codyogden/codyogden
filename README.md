@@ -8,6 +8,5 @@ Follow me on [Twitter](https://twitter.com/codyogden). Check out my [GitHub](htt
 
 <!--WRITINGS-->
 ## Writings
-- 10 October 2021<br/>
-  [Finding California](/src/content/blog/finding-california.md)
+- [Finding California](/src/content/blog/finding-california.md) (10 October 2021)
 <!--WRITINGS-->
