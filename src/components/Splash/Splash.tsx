@@ -34,7 +34,7 @@ const Splash: FC<Props> = ({
                 opacity: 0,
             }}
         >
-            {`I'm a Technical Account Manager a`} <Link href='https://vercel.com' passHref><a rel='noopener noreferrer'>Vercel</a></Link>.
+            {`I'm a Technical Account Manager at`} <Link href='https://vercel.com' passHref><a rel='noopener noreferrer'>Vercel</a></Link>.
         </p>
         <noscript>
             <style>{`
