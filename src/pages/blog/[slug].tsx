@@ -1,8 +1,9 @@
 import { Layout } from '@components';
 import { GetStaticPaths, GetStaticProps, NextPage, NextPageContext } from 'next';
-import { readdirSync } from 'fs';
+import { readdirSync, readFileSync } from 'fs';
 import { resolve } from 'path';
 import { format } from 'date-fns';
+import {default as parseMarkdown} from 'front-matter-markdown';
 
 interface Props extends NextPageContext {
     title: string;
@@ -22,18 +23,6 @@ const BlogPost: NextPage<Props> = ({
     console.log(date_published.split('T')[0]);
     return <Layout>
         <article
-            // css={{
-            //     // maxWidth: '65ch',
-            //     margin: '5.5rem auto',
-            //     display: 'grid',
-            //     gridTemplateColumns: '1fr 1fr min(65ch,95%) 1fr 1fr',
-            //     '*': {
-            //         gridColumn: '3/3',
-            //     },
-            //     '* img': {
-            //         maxWidth: '100%',
-            //     },
-            // }}
             className='blog-post'
         >
             <header>
@@ -75,11 +64,23 @@ const BlogPost: NextPage<Props> = ({
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const paths = readdirSync(resolve('src', 'content', 'blog')).map((i) => ({
-        params: {
-            slug: i.replace('.md', ''),
-        }
-    }));
+    const files = readdirSync(resolve('src', 'content', 'blog'));
+    const paths = files.map((file) => {
+        return {
+            file,
+            attributes: parseMarkdown(readFileSync(resolve('src', 'content', 'blog', file)).toString()),
+        };
+    })
+        .reduce((p, { file, attributes }) => {
+            if (!attributes.published)
+                return p;
+            p.push({
+                params: {
+                    slug: file.replace('.md', ''),
+                }
+            });
+            return p;
+        }, []);
     return {
         paths,
         fallback: false,
