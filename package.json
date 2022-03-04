@@ -15,7 +15,19 @@
     "@types/react": "^17.0.39",
     "eslint": "8.10.0",
     "eslint-config-next": "12.1.0",
+    "front-matter-markdown": "^0.4.5",
     "frontmatter-markdown-loader": "^3.6.3",
+    "pre-commit": "^1.2.2",
     "sass": "^1.49.9"
-  }
+  },
+  "scripts": {
+    "build": "next build",
+    "build:readme": "bin/readme",
+    "export": "next export",
+    "start": "next start",
+    "dev": "next dev"
+  },
+  "pre-commit": [
+    "build:readme"
+  ]
 }
