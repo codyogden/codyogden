@@ -149,9 +149,11 @@ export const getStaticProps = async () => {
             return (a_date > b_date) ? -1 : (b_date < a_date) ? 1 : 0;
         });
 
+    console.log(html.split('</h2>')[1].split('<!--START_WRITINGS-->')[0]);
+
     return {
         props: {
-            content: html.split('</h2>')[1].split('<!--WRITINGS-->')[0],
+            content: html.split('</h2>')[1].split('<!--START_WRITINGS-->')[0],
             posts,
         }
     }
