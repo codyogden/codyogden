@@ -47,8 +47,13 @@ ul.blogFeed {
 }
 
 article.blog-post {
-    margin: 5rem 0;
+    margin: 5rem 0 0 0;
+    @media screen and (max-width: 800px) {
+        margin: 2rem 0 0 0;
+    }
 }
+
+
 
 article.blog-post header,
 article.blog-post section,
@@ -105,17 +110,17 @@ article.blog-post section {
         }
     }
 }
-main.post-single {
-    margin-bottom: 100px;
-}
+
 article.blog-post {
-    margin-bottom: 100px;
     header {
         margin-top: 1rem;
     }
     h1 {
         font-size: 2.25rem;
         margin: 1rem 0;
+        @media screen and (max-width: 800px) {
+            margin: 0.5rem 0;
+        }
     }
     time {
         color: #a1a1a7;

@@ -1,10 +1,11 @@
-import { Layout } from '@components';
+import { Layout, SRT } from '@components';
 import { GetStaticPaths, GetStaticProps, NextPage, NextPageContext } from 'next';
 import { readdirSync, readFileSync } from 'fs';
 import { resolve } from 'path';
 import { format } from 'date-fns';
 import {default as parseMarkdown} from 'front-matter-markdown';
 import Head from 'next/head';
+import Link from 'next/link';
 
 interface Props extends NextPageContext {
     slug: string;
@@ -82,6 +83,26 @@ const BlogPost: NextPage<Props> = ({
             </div>
             </header>
             <section dangerouslySetInnerHTML={{ __html: content }} />
+            <footer>
+                <div css={{
+                    padding: '1rem 0 10rem 0',
+                    fontFamily: 'Indie Flower',
+                }}>
+                    <span css={{ fontSize: '1.5rem', letterSpacing: 2, textTransform: 'lowercase' }}>
+                        Wishing you well,
+                    </span>
+                    <br />
+                    <Link href='/' passHref>
+                        <a css={{
+                            textDecoration: 'none',
+                            fontSize: '3rem',
+                            color: 'currentcolor',
+                        }}>
+                            Cody Ogden
+                        </a>
+                    </Link>
+                </div>
+            </footer>
         </article>
     </Layout>;
 }

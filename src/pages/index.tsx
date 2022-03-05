@@ -1,7 +1,4 @@
-import { Layout, Splash } from '@components';
 import { NextPage, NextPageContext } from 'next';
-import { readdirSync } from 'fs';
-import { resolve } from 'path';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import Head from 'next/head';
@@ -9,21 +6,45 @@ import getBlogPosts, { BlogProps } from 'src/utils/getBlogPosts';
 
 interface Props extends NextPageContext {
     content: string;
+    header: string;
     posts: Array<any>;
 }
 
 const IndexPage: NextPage<Props> = ({
     content,
+    header,
     posts,
 }) => {
     return <>
         <Head>
             <title>Cody Ogden</title>
         </Head>
-        <Splash
+        <div
             css={{
-                margin: '10rem 0 2rem 0',
+                fontFamily: 'Indie Flower',
+                textAlign: 'center',
+                marginTop: '10rem',
+                'h1': {
+                    fontSize: '4.25rem',
+                },
+                'span': {
+                    display: 'block',
+                    marginTop: 16,
+                    fontSize: '1.5rem',
+                },
+                ['@media screen and (max-width: 800px)']: {
+                    marginTop: '5rem',
+                    'h1': {
+                        fontSize: '3rem',
+                    }
+                },
+                ['@media screen and (min-width: 800px)']: {
+                    'br': {
+                        display: 'none',
+                    }
+                },
             }}
+            dangerouslySetInnerHTML={{ __html: header }}
         />
         <div>
             <div
@@ -39,6 +60,12 @@ const IndexPage: NextPage<Props> = ({
                         margin: '0.5rem 0',
                         fontSize: '0.9rem',
                         letterSpacing: '1px',
+                    },
+                    ['@media screen and (max-width: 800px)']: {
+                        'p': {
+                            fontSize: '1rem',
+                            letterSpacing: 0,
+                        }
                     },
                 }}
                 dangerouslySetInnerHTML={{ __html: content }}
@@ -61,6 +88,9 @@ const IndexPage: NextPage<Props> = ({
                 padding: 0,
                 margin: '0 auto 20rem auto',
                 maxWidth: '75%',
+                ['@media screen and (max-width: 800px)']: {
+                    maxWidth: '100%',
+                },
             }}>
                 {posts.map((post) => <li key={post.slug} css={{
                     margin: 0,
@@ -131,7 +161,8 @@ export const getStaticProps = async () => {
 
     return {
         props: {
-            content: html.split('</h2>')[1].split('<!--START_WRITINGS-->')[0],
+            header: html.split('</h1>')[0],
+            content: html.split('</h1>')[1].split('<!--START_WRITINGS-->')[0],
             posts,
         }
     }
