@@ -5,6 +5,7 @@ import { resolve } from 'path';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import Head from 'next/head';
+import getBlogPosts, { BlogProps } from 'src/utils/getBlogPosts';
 
 interface Props extends NextPageContext {
     content: string;
@@ -15,24 +16,16 @@ const IndexPage: NextPage<Props> = ({
     content,
     posts,
 }) => {
-    return <Layout>
+    return <>
         <Head>
             <title>Cody Ogden</title>
         </Head>
         <Splash
             css={{
                 margin: '10rem 0 2rem 0',
-                // height: '60vh',
             }}
         />
-        <div
-            className={'animated'}
-            css={{
-                animation: 'MakeThingsFadeIn 800ms linear forwards',
-                animationDelay: '2500ms',
-                opacity: 0,
-            }}
-        >
+        <div>
             <div
                 css={{
                     display: 'grid',
@@ -57,9 +50,6 @@ const IndexPage: NextPage<Props> = ({
                 display: 'grid',
                 margin: '0 0',
                 gridTemplateColumns: '1fr 1fr min(65ch,95%) 1fr 1fr',
-                animation: 'MakeThingsFadeIn 800ms linear forwards',
-                animationDelay: '2500ms',
-                opacity: 0,
                 '*': {
                     gridColumn: '3/3',
                 },
@@ -69,11 +59,12 @@ const IndexPage: NextPage<Props> = ({
             <ul css={{
                 listStyleType: 'none',
                 padding: 0,
-                margin: '0 0 20rem 0',
+                margin: '0 auto 20rem auto',
+                maxWidth: '75%',
             }}>
                 {posts.map((post) => <li key={post.slug} css={{
-                    margin: '1rem 0',
-                    padding: '1rem 0',
+                    margin: 0,
+                    padding: 0,
                     borderBottom: '1px solid #eee',
                     ':first-of-type': {
                         marginTop: 0,
@@ -83,12 +74,25 @@ const IndexPage: NextPage<Props> = ({
                     <Link href={`/blog/${post.slug}`} passHref>
                         <a css={{
                             textDecoration: 'none',
+                            display: 'block',
+                            padding: '1rem',
+                            margin: '1rem',
+                            borderRadius: 4,
+                            transition: 'background-color 110ms linear',
+                            ':hover': {
+                                backgroundColor: 'rgba(238,238,238, 0.65)'
+                            },
                         }}>
                             <time css={{ display: 'block', fontSize: '0.75rem', color: '#808085', marginBottom: 4, }} dateTime={post.date_published}>{format(new Date(post.date_published), 'LLLL dd, yyyy')}</time>
                             <div css={{
                                 display: 'inline',
                                 fontSize: '1.25rem',
                             }}>{post.title}</div>
+                            <p css={{
+                                color: '#737377',
+                                fontSize: '0.8rem',
+                                marginTop: 4
+                            }}>{post.description}</p>
                         </a>
                     </Link>
                 </li>)}
@@ -101,47 +105,24 @@ const IndexPage: NextPage<Props> = ({
                 }
             `}</style>
         </noscript>
-    </Layout>
-};
-
-interface BlogAttributes {
-    title: string;
-    date_published: string;
-    image?: string;
-    image_alt?: string;
-    published: boolean;
-}
-
-interface BlogProps extends BlogAttributes {
-    slug: string;
-    content: string;
-    published: boolean;
-}
-
-const getBlogPosts: () => Promise<BlogProps[]> = async () => {
-    const paths = readdirSync(resolve('src', 'content', 'blog'));
-    const files = [];
-    for(let i = 0; i < paths.length; i++) {
-        const { attributes, html } = await import(`src/content/blog/${paths[i]}`);
-        files.push({ slug: paths[i].replace('.md', ''), ...attributes, content: html });
-    }
-    return files;
+    </>
 };
 
 export const getStaticProps = async () => {
     const { html } = await import('../../README.md');
 
     const posts = (await getBlogPosts())
-        .reduce((p, c): Partial<BlogProps>[] => {
-            if(!c.published)
-                return p;
-            p.push({
-                date_published: c.date_published,
-                title: c.title,
-                slug: c.slug,
-            });
-            return p;
-        }, [])
+        .map(({
+            date_published,
+            title,
+            slug,
+            meta: { description },
+        }) => ({
+            date_published,
+            title,
+            slug,
+            description,
+        }))
         .sort((a: Partial<BlogProps>, b: Partial<BlogProps>) => {
             const a_date = new Date(a.date_published);
             const b_date = new Date(b.date_published);

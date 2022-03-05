@@ -21,7 +21,12 @@ const Splash: FC<Props> = ({
         }}
         className={className}
     >
-        <Animation callback={callback} aria-hidden />
+        {/* <Animation callback={callback} aria-hidden /> */}
+        <h1 css={{
+            fontFamily: 'Indie Flower',
+            fontSize: '4rem',
+            fontWeight: 300,
+        }}>{`I'm Cody Ogden`}</h1>
         <p
             className='subtitle'
             css={{
@@ -29,9 +34,6 @@ const Splash: FC<Props> = ({
                 fontSize: '2rem',
                 margin: 0,
                 marginTop: 4,
-                animation: 'MakeThingsFadeIn 800ms linear forwards',
-                animationDelay: '2100ms',
-                opacity: 0,
             }}
         >
             {`I'm a Technical Account Manager at`} <Link href='https://vercel.com' passHref><a rel='noopener noreferrer'>Vercel</a></Link>.
