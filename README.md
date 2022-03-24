@@ -8,6 +8,7 @@ Follow me on [Twitter](https://twitter.com/codyogden), check out my [GitHub](htt
 
 <!--START_WRITINGS-->
 ## Writings
+- [Car Ride](https://codyogden.com/blog/car-ride)
 - [Finding California](https://codyogden.com/blog/finding-california)
 <!--END_WRITINGS-->
 
