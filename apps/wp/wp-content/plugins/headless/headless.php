@@ -7,6 +7,7 @@
  * Author URI: https://codyogden.com
  */
 
+// Get all posts
 function codyogden_headless_posts( $request ) {
     $result = get_posts();
     return rest_ensure_response(array_reduce($result, function( $p, $post ) {
@@ -21,6 +22,7 @@ function codyogden_headless_posts( $request ) {
     }, array()));
 }
 
+// Return a single post by slug
 function codyogden_headless_post( $request ) {
     $query = new WP_Query(
         array(
@@ -30,7 +32,6 @@ function codyogden_headless_post( $request ) {
         ) );
     $posts = $query->get_posts();
     $post = array_shift( $posts );
-    // var_dump( $post ); die();
     $content = apply_filters( 'the_content', get_the_content( null, null, $post->ID ) );
     return rest_ensure_response(array(
         'slug'      => $post->post_name,
@@ -40,6 +41,9 @@ function codyogden_headless_post( $request ) {
         'date'      => $post->post_date,
     ));
 }
+
+function codyogden_headless_pages( $request ) {}
+function codyogden_headless_page( $request ) {}
 
  add_action( 'rest_api_init',
     function () {
