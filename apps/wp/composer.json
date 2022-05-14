@@ -1,9 +1,33 @@
 {
     "repositories": [
         {
+            "type": "package",
+            "package": {
+                "name": "advanced-custom-fields/advanced-custom-fields-pro",
+                "version": "5.7.12",
+                "type": "wordpress-plugin",
+                "dist": {
+                    "type": "zip",
+                    "url": "https://connect.advancedcustomfields.com/index.php?a=download&p=pro&k={%ACF_LICENSE_KEY}"
+                },
+                "require": {
+                    "composer/installers": "^1.4",
+                    "ffraenz/private-composer-installer": "^5.0"
+                }
+            }
+        },
+        {
             "type": "composer",
             "url": "https://wpackagist.org"
         }
     ],
-    "require": {}
+    "require": {
+        "advanced-custom-fields/advanced-custom-fields-pro": "^5.0.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "ffraenz/private-composer-installer": true,
+            "composer/installers": true
+        }
+    }
 }

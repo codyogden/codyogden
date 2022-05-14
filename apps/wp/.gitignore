@@ -1,4 +1,5 @@
 wp-content/uploads
 wp-content/themes/*
 vendor/
+wp-content/plugins/advanced-custom-fields-pro
 !wp-content/themes/codyogden
