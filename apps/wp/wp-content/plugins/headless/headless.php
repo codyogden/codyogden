@@ -34,6 +34,7 @@ function codyogden_headless_post( $request ) {
     $post = array_shift( $posts );
     $content = apply_filters( 'the_content', get_the_content( null, null, $post->ID ) );
     return rest_ensure_response(array(
+        'id'        => $post->ID,
         'slug'      => $post->post_name,
         'title'     => $post->post_title,
         'content'   => $content,
@@ -42,8 +43,44 @@ function codyogden_headless_post( $request ) {
     ));
 }
 
-function codyogden_headless_pages( $request ) {}
-function codyogden_headless_page( $request ) {}
+function codyogden_headless_pages( $request ) {
+        $query = new WP_Query(
+        array(
+            'post_type'   => 'page',
+            'numberposts' => 1000,
+        ) );
+        return rest_ensure_response(array_reduce(
+            $query->get_posts(),
+            function($p, $post) {
+                array_push( $p, array(
+                    'params'    => array(
+                        'path'  => explode( '/', ltrim( rtrim( parse_url( get_permalink( $post ) )['path'], '/' ), '/') ),
+                    ),
+                ));
+                return $p;
+            },
+            array()
+        ));
+}
+function codyogden_headless_page( $request ) {
+    $query = new WP_Query(
+        array(
+            'name'   => $request['slug'],
+            'post_type'   => 'page',
+            'numberposts' => 1,
+        ) );
+    $posts = $query->get_posts();
+    $post = array_shift( $posts );
+    $content = apply_filters( 'the_content', get_the_content( null, null, $post->ID ) );
+    return rest_ensure_response(array(
+        'id'        => $post->ID,
+        'slug'      => $post->post_name,
+        'title'     => $post->post_title,
+        'content'   => $content,
+        'date_gmt'  => $post->post_date_gmt,
+        'date'      => $post->post_date,
+    ));
+}
 
  add_action( 'rest_api_init',
     function () {
@@ -69,5 +106,26 @@ function codyogden_headless_page( $request ) {}
                 'callback' => 'codyogden_headless_post',
             )
         );
+
+        register_rest_route(
+            "$prefix/$version",
+            '/pages',
+            array(
+                'methods' => 'GET',
+                'permission_callback'  => '__return_true',
+                'callback' => 'codyogden_headless_pages',
+            )
+        );
+
+        register_rest_route(
+            "$prefix/$version",
+            '/pages/(?P<slug>[a-zA-Z0-9-]+)',
+            array(
+                'methods' => 'GET',
+                'permission_callback'  => '__return_true',
+                'callback' => 'codyogden_headless_page',
+            )
+        );
+        
     }
 );
