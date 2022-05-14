@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+  wp:
+    image: wordpress:php8.0
+    volumes:
+      - ./wp-content:/var/www/html/wp-content
+      - ./vendor:/var/www/vendor
+    environment:
+      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST:-database}
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME:-wordpress}
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER:-wordpress}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD:-wordpress}
+      WORDPRESS_TABLE_PREFIX: "wp_"
+      WORDPRESS_DEBUG: 1
+      WORDPRESS_CONFIG_EXTRA: "
+        \ndefine( 'ABSOLUTE_HOST', $$_SERVER['HTTP_X_ORIGINAL_HOST'] ?? $$_SERVER['HTTP_HOST']);
+        \ndefine( 'WP_SITEURL', 'http://' . ABSOLUTE_HOST );
+        \ndefine( 'WP_HOME', 'http://' . ABSOLUTE_HOST );
+        \ndefine( 'DISALLOW_FILE_EDIT', true );
+        \ndefine( 'DISALLOW_FILE_MODS', true );
+        \ndefine( 'AUTOMATIC_UPDATER_DISABLED', true );
+        \ndefine( 'WP_AUTO_UPDATE_CORE', false );
+        \ndefine( 'WP_DEFAULT_THEME', 'codyogden' );
+        \nrequire '/var/www/vendor/autoload.php';
+        "
+    env_file: ../../.env
+    ports:
+      - 8080:80
+  database:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+      MYSQL_DATABASE: wordpress
+    ports:
+      - 3306:3306
+    volumes:
+      - wp-db:/var/lib/mysql:delegated
+volumes:
+  wp-db: ~

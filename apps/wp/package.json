@@ -1,0 +1,7 @@
+{
+    "name": "wp",
+    "scripts": {
+        "build": "composer install",
+        "dev": "docker compose up"
+    }
+}

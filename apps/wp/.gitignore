@@ -1,0 +1,4 @@
+wp-content/uploads
+wp-content/themes/*
+vendor/
+!wp-content/themes/codyogden
