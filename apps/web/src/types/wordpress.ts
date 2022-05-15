@@ -16,4 +16,14 @@ export interface Page extends PostType {
     title: string;
     content: string;
 }
-export interface Photo extends PostType {}
+
+export interface Photo extends PostType {
+    title: string;
+    alt: string;
+    sizes: {
+        [key:string]: string;
+        full: string;
+        'full-width': string;
+        'full-height': string;
+    }
+}
