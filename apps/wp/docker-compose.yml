@@ -4,7 +4,8 @@ services:
     image: wordpress:php8.0
     volumes:
       - ./wp-content:/var/www/html/wp-content
-      - ./vendor:/var/www/vendor
+      - ./vendor:/var/www/html/vendor
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     environment:
       WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST:-database}
       WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME:-wordpress}
@@ -20,10 +21,20 @@ services:
         \ndefine( 'DISALLOW_FILE_MODS', true );
         \ndefine( 'AUTOMATIC_UPDATER_DISABLED', true );
         \ndefine( 'WP_AUTO_UPDATE_CORE', false );
-        \ndefine( 'WP_DEFAULT_THEME', 'codyogden' );
-        \nrequire '/var/www/vendor/autoload.php';
+        \ndefine( 'WP_DEFAULT_THEME', getenv( 'WP_DEFAULT_THEME' ) );
+        \ndefine( 'S3_UPLOADS_BUCKET', getenv('S3_UPLOADS_BUCKET') );
+        \ndefine( 'S3_UPLOADS_REGION', getenv('S3_UPLOADS_REGION') );
+        \ndefine( 'S3_UPLOADS_KEY', getenv('S3_UPLOADS_KEY') );
+        \ndefine( 'S3_UPLOADS_SECRET', getenv('S3_UPLOADS_SECRET') );
+        \ndefine( 'S3_UPLOADS_USE_INSTANCE_PROFILE', true );
+        \ndefine( 'S3_UPLOADS_BUCKET_URL', getenv('S3_UPLOADS_BUCKET_URL') );
+        \ndefine( 'S3_UPLOADS_ENDPOINT', getenv('S3_UPLOADS_ENDPOINT') );
+        \ndefine( 'S3_UPLOADS_USE_LOCAL', getenv( 'S3_UPLOADS_USE_LOCAL' ) );
+        \nrequire 'vendor/autoload.php';
         "
     env_file: ../../.env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - 8080:80
   database:

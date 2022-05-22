@@ -69,13 +69,21 @@ function codyogden_photos() {
 add_action( 'init', 'codyogden_photos', 0 );
 
 function codyogden_headless_photos( $request ) {
+	$per_page = ($request['per_page'] > 0) ? $request['per_page'] : 12;
+	$offset = ($request['offset'] > 0) ? $request['offset'] : 0;
     $query = new WP_Query(
     array(
         'post_type'   => 'photos',
-        'numberposts' => 1000,
+        'posts_per_page' => $per_page,
+		'offset'	=> $offset,
     ) );
 
-    return rest_ensure_response( array_reduce(
+    return rest_ensure_response(array(
+		'meta'	=> array(
+			'total'	=> $query->found_posts,
+			'per_page'	=> $per_page,
+		),
+		'data'	=> array_reduce(
             $query->get_posts(),
             function($p, $photo) {
                 $fields = get_field( 'photo', $photo );
@@ -97,7 +105,8 @@ function codyogden_headless_photos( $request ) {
                 return $p;
             },
             array()
-        ));
+        )
+	));
 }
 function codyogden_headless_photo( $request ) {
     return rest_ensure_response( array() );
@@ -128,3 +137,8 @@ add_action( 'rest_api_init', function() {
     );
 });
 
+
+add_action( 'after_setup_theme', 'wpdocs_theme_setup' );
+function wpdocs_theme_setup() {
+    add_image_size( 'co-gallery', 300, 300, true );
+}

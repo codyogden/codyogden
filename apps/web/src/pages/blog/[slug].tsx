@@ -16,7 +16,7 @@ const BlogPost: NextPage<BlogPostProps> = ({
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }): Promise<GetStaticPropsResult<BlogPostProps>> => {
-    const post = await fetcher(`${process.env.WP_URL}/wp-json/headless/v1/posts/${params.slug}`);
+    const post = await fetcher(`${process.env.NEXT_PUBLIC_WP_URL}/wp-json/headless/v1/posts/${params.slug}`);
     if (!post.slug) {
         return {
             notFound: true,
@@ -30,7 +30,7 @@ export const getStaticProps: GetStaticProps = async ({ params }): Promise<GetSta
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const posts: Post[] = await fetcher(`${process.env.WP_URL}/wp-json/headless/v1/posts`);
+    const posts: Post[] = await fetcher(`${process.env.NEXT_PUBLIC_WP_URL}/wp-json/headless/v1/posts`);
     const paths = posts.reduce((p, c) => {
         p.push({
             params: {

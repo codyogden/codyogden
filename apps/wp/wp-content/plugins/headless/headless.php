@@ -7,125 +7,84 @@
  * Author URI: https://codyogden.com
  */
 
-// Get all posts
-function codyogden_headless_posts( $request ) {
-    $result = get_posts();
-    return rest_ensure_response(array_reduce($result, function( $p, $post ) {
-        array_push($p, array(
-            'ID'    => $post->ID,
-            'title' => $post->post_title,
-            'slug'  => $post->post_name,
-            'date_gmt'  => $post->date_gmt,
-            'date'      => $post->date,
-        ));
-        return $p;
-    }, array()));
-}
+use GuzzleHttp\Client;
 
-// Return a single post by slug
-function codyogden_headless_post( $request ) {
-    $query = new WP_Query(
-        array(
-            'name'   => $request['slug'],
-            'post_type'   => 'post',
-            'numberposts' => 1,
-        ) );
-    $posts = $query->get_posts();
-    $post = array_shift( $posts );
-    $content = apply_filters( 'the_content', get_the_content( null, null, $post->ID ) );
-    return rest_ensure_response(array(
-        'id'        => $post->ID,
-        'slug'      => $post->post_name,
-        'title'     => $post->post_title,
-        'content'   => $content,
-        'date_gmt'  => $post->post_date_gmt,
-        'date'      => $post->post_date,
-    ));
-}
+require dirname(__FILE__) . '/options.php';
+require dirname(__FILE__) . '/client.php';
+require dirname(__FILE__) . '/menu.php';
+require dirname(__FILE__) . '/api.php';
 
-function codyogden_headless_pages( $request ) {
-        $query = new WP_Query(
-        array(
-            'post_type'   => 'page',
-            'numberposts' => 1000,
-        ) );
-        return rest_ensure_response(array_reduce(
-            $query->get_posts(),
-            function($p, $post) {
-                array_push( $p, array(
-                    'params'    => array(
-                        'path'  => explode( '/', ltrim( rtrim( parse_url( get_permalink( $post ) )['path'], '/' ), '/') ),
-                    ),
-                ));
-                return $p;
-            },
-            array()
-        ));
-}
-function codyogden_headless_page( $request ) {
-    $query = new WP_Query(
-        array(
-            'name'   => $request['slug'],
-            'post_type'   => 'page',
-            'numberposts' => 1,
-        ) );
-    $posts = $query->get_posts();
-    $post = array_shift( $posts );
-    $content = apply_filters( 'the_content', get_the_content( null, null, $post->ID ) );
-    return rest_ensure_response(array(
-        'id'        => $post->ID,
-        'slug'      => $post->post_name,
-        'title'     => $post->post_title,
-        'content'   => $content,
-        'date_gmt'  => $post->post_date_gmt,
-        'date'      => $post->post_date,
-    ));
-}
+function headless_get_path( $post ) {
+    $permalink = get_permalink( $post->ID );
+    if ( $post->post_status === 'draft' ) {
 
- add_action( 'rest_api_init',
-    function () {
-        $prefix = 'headless';
-        $version = 'v1';
-
-        register_rest_route(
-            "$prefix/$version",
-            '/posts',
-            array(
-                'methods' => 'GET',
-                'permission_callback'  => '__return_true',
-                'callback' => 'codyogden_headless_posts',
-            )
+        $my_post = clone $post;
+        $my_post->post_status = 'publish';
+        $my_post->post_name = sanitize_title(
+            $my_post->post_name ? $my_post->post_name : $my_post->post_title,
+            $my_post->ID
         );
-
-        register_rest_route(
-            "$prefix/$version",
-            '/posts/(?P<slug>[a-zA-Z0-9-]+)',
-            array(
-                'methods' => 'GET',
-                'permission_callback'  => '__return_true',
-                'callback' => 'codyogden_headless_post',
-            )
-        );
-
-        register_rest_route(
-            "$prefix/$version",
-            '/pages',
-            array(
-                'methods' => 'GET',
-                'permission_callback'  => '__return_true',
-                'callback' => 'codyogden_headless_pages',
-            )
-        );
-
-        register_rest_route(
-            "$prefix/$version",
-            '/pages/(?P<slug>[a-zA-Z0-9-]+)',
-            array(
-                'methods' => 'GET',
-                'permission_callback'  => '__return_true',
-                'callback' => 'codyogden_headless_page',
-            )
-        );
-        
+        $permalink = get_permalink( $my_post );
     }
-);
+
+    $path = rtrim( parse_url( $permalink )['path'], '/' );
+
+    switch ($post->post_type) {
+        case 'post':
+            return "/blog$path";
+        default:
+            return $path;
+    }
+}
+
+function headless_revalidate_page( $post ) {
+    global $headless_client;
+    $path = headless_get_path( $post );
+    if($path) {
+        try {
+            $headless_client->request('GET', '/api/revalidate?token=hello-world&path=' . $path);
+        } catch (Exception $e) {
+            throw new Error($e->getMessage());
+        }
+    }
+}
+
+function headless_revalidate_post( $post ) {
+    global $headless_client;
+    $path = headless_get_path( $post );
+    if($path) {
+        try {
+            $headless_client->request('GET', '/api/revalidate?token=hello-world&path=' . $path);
+            $headless_client->request('GET', '/api/revalidate?token=hello-world&path=/blog');
+        } catch (Exception $e) {
+            throw new Error($e->getMessage());
+        }
+    }
+}
+
+function headless_revalidate_photos( $post ) {
+    global $headless_client;
+    try {
+        $headless_client->request('GET', '/api/revalidate?token=hello-world&path=/photos');
+    } catch (Exception $e) {
+        throw new Error($e->getMessage());
+    }
+}
+
+add_action('save_post', function( $post_id, $post, $update ) {
+    global $headless_client;
+    $headless_client->request('GET', '/api/revalidate?token=hello-world&path=/');
+    if( function_exists( 'headless_revalidate_' . $post->post_type ) ) {
+        ('headless_revalidate_' . get_post( $post_id )->post_type)( get_post( $post_id ) );
+    }
+
+}, 10, 3);
+
+add_action('wp_trash_post', function( $post_id ) {
+
+    if( function_exists( 'headless_revalidate_' . get_post( $post_id )->post_type ) ) {
+        wp_update_post(array( 'ID' => $post_id, 'post_status' => 'draft' ));
+        ('headless_revalidate_' . get_post( $post_id )->post_type)( get_post( $post_id ) );
+    }
+
+}, 99);

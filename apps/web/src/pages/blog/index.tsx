@@ -21,7 +21,7 @@ const BlogRoll: NextPage<BlogRollProps> = ({
 };
 
 export const getStaticProps = async (): Promise<GetStaticPropsResult<BlogRollProps>> => {
-    const posts = await fetcher(`${process.env.WP_URL}/wp-json/headless/v1/posts`);
+    const posts = await fetcher(`${process.env.NEXT_PUBLIC_WP_URL}/wp-json/headless/v1/posts`);
     return {
         props: {
             posts,

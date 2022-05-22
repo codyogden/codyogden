@@ -18,11 +18,17 @@
         },
         {
             "type": "composer",
-            "url": "https://wpackagist.org"
+            "url": "https://wpackagist.org",
+            "only": [
+                "wpackagist-plugin/*",
+                "wpackagist-theme/*"
+            ]
         }
     ],
     "require": {
-        "advanced-custom-fields/advanced-custom-fields-pro": "^5.0.0"
+        "advanced-custom-fields/advanced-custom-fields-pro": "^5.0.0",
+        "humanmade/s3-uploads": "^3.0",
+        "sentry/sdk": "^3.1"
     },
     "config": {
         "allow-plugins": {

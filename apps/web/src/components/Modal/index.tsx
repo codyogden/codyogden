@@ -19,7 +19,6 @@ const Modal: FC<ModalProps> = ({
             _hideModal();
         }
     });
-    console.log(className);
     useEffect(() => {
         setShowModal(viewable);
     }, [viewable]);
