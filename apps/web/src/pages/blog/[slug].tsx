@@ -10,8 +10,26 @@ const BlogPost: NextPage<BlogPostProps> = ({
     post
 }) => {
     return <>
-        <h1>{post.title}</h1>
-        <main dangerouslySetInnerHTML={{ __html: post.content }} />
+        <article>
+            <header
+            className='content'
+            >
+                <h1>{post.title}</h1>
+                {/* eslint-disable-next-line */}
+                {post.featured_image && <img
+                    css={{
+                        maxWidth: '100%',
+                        display: 'block',
+                    }}
+                    src={post.featured_image.sizes.full}
+                    alt={post.featured_image.alt}
+                />}
+            </header>
+            <main
+                className='content'
+                dangerouslySetInnerHTML={{ __html: post.content }}
+            />
+        </article>
     </>;
 };
 

@@ -6,37 +6,15 @@ services:
       - ./wp-content:/var/www/html/wp-content
       - ./vendor:/var/www/html/vendor
       - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
-    environment:
-      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST:-database}
-      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME:-wordpress}
-      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER:-wordpress}
-      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD:-wordpress}
-      WORDPRESS_TABLE_PREFIX: "wp_"
-      WORDPRESS_DEBUG: 1
-      WORDPRESS_CONFIG_EXTRA: "
-        \ndefine( 'ABSOLUTE_HOST', $$_SERVER['HTTP_X_ORIGINAL_HOST'] ?? $$_SERVER['HTTP_HOST']);
-        \ndefine( 'WP_SITEURL', 'http://' . ABSOLUTE_HOST );
-        \ndefine( 'WP_HOME', 'http://' . ABSOLUTE_HOST );
-        \ndefine( 'DISALLOW_FILE_EDIT', true );
-        \ndefine( 'DISALLOW_FILE_MODS', true );
-        \ndefine( 'AUTOMATIC_UPDATER_DISABLED', true );
-        \ndefine( 'WP_AUTO_UPDATE_CORE', false );
-        \ndefine( 'WP_DEFAULT_THEME', getenv( 'WP_DEFAULT_THEME' ) );
-        \ndefine( 'S3_UPLOADS_BUCKET', getenv('S3_UPLOADS_BUCKET') );
-        \ndefine( 'S3_UPLOADS_REGION', getenv('S3_UPLOADS_REGION') );
-        \ndefine( 'S3_UPLOADS_KEY', getenv('S3_UPLOADS_KEY') );
-        \ndefine( 'S3_UPLOADS_SECRET', getenv('S3_UPLOADS_SECRET') );
-        \ndefine( 'S3_UPLOADS_USE_INSTANCE_PROFILE', true );
-        \ndefine( 'S3_UPLOADS_BUCKET_URL', getenv('S3_UPLOADS_BUCKET_URL') );
-        \ndefine( 'S3_UPLOADS_ENDPOINT', getenv('S3_UPLOADS_ENDPOINT') );
-        \ndefine( 'S3_UPLOADS_USE_LOCAL', getenv( 'S3_UPLOADS_USE_LOCAL' ) );
-        \nrequire 'vendor/autoload.php';
-        "
+      - ./wp-config.php:/var/www/html/wp-config.php
     env_file: ../../.env
     extra_hosts:
       - "host.docker.internal:host-gateway"
     ports:
       - 8080:80
+    restart: always
+    depends_on:
+      - database
   database:
     image: mariadb:latest
     environment:

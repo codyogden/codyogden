@@ -4,7 +4,7 @@ use GuzzleHttp\Client;
 
 function get_headless_host() {
     try {
-        $host = get_field( 'host', 'options' );
+        $host = HEADLESS_URL;
         return $host;
     } catch ( Exception $e ) {
         throw new Error($e->getMessage());

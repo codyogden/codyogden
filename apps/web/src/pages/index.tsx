@@ -1,3 +1,4 @@
+import BlogGrid from '@components/BlogGrid';
 import Layout from '@components/Layout';
 import PhotoGrid from '@components/PhotoGrid';
 import { GetStaticProps, NextPage } from 'next';
@@ -20,6 +21,9 @@ const IndexPage: NextPage<IndexPageProps> = ({
 }) => {
     return <Layout>
         <section>
+            <BlogGrid posts={posts} />
+        </section>
+        <section>
             <PhotoGrid
                 total={photos.meta.total}
                 photos={photos.data}
@@ -27,11 +31,10 @@ const IndexPage: NextPage<IndexPageProps> = ({
                     <Link href="/photos" passHref>
                         <a
                             css={{
-                                display: 'flex',
-                                height: '100%',
+                                display: 'block',
                                 width: '100%',
-                                justifyContent: 'center',
-                                alignItems: 'center',
+                                textAlign: 'center',
+                                padding: '1rem 0',
                             }}
                         >
                             More Photos
@@ -45,7 +48,7 @@ const IndexPage: NextPage<IndexPageProps> = ({
 
 export const getStaticProps: GetStaticProps = async () => {
     const posts = await fetcher(`${process.env.NEXT_PUBLIC_WP_URL}/wp-json/headless/v1/posts`);
-    const photos = await fetcher(`${process.env.NEXT_PUBLIC_WP_URL}/wp-json/headless/v1/photos?offset=0&per_page=5`);
+    const photos = await fetcher(`${process.env.NEXT_PUBLIC_WP_URL}/wp-json/headless/v1/photos?offset=0&per_page=6`);
     return {
         props: {
             photos: photos,

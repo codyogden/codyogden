@@ -1,3 +1,4 @@
+import Loading from '@components/Loading';
 import Modal from '@components/Modal';
 import { useModal } from '@components/Modal/useModal';
 import Image from 'next/image';
@@ -21,23 +22,22 @@ const PhotoGrid: FC<PhotoGridProps> = ({
     photos,
     infiniteScroll = false,
     total,
-    perPage = 12,
+    perPage,
     disableModal = false,
     columns = 3,
     columnsMobile = 3,
     FinalItem
 }) => {
     const [_photos, setPhotos] = useState<Photo[]>(photos);
-    const [hasMorePhotos, setHasMorePhotos] = useState(true);
+    const hasMorePhotos = () => _photos.length < total;
+    const [isLoading, setIsLoading] = useState(false);
     const loadMorePhotos = async () => {
-        if (hasMorePhotos) {
-            const morePhotos = await fetcher(`/api/headless/photos?offset=${_photos.length}&per_page=${perPage}`);
-            const allPhotos = [..._photos, ...morePhotos.data];
-            setPhotos(allPhotos);
-            if (allPhotos.length === total) {
-                setHasMorePhotos(false);
-            }
-        }
+        setIsLoading(true);
+        console.log('request');
+        const morePhotos = await fetcher(`/api/headless/photos?offset=${_photos.length}&per_page=${perPage}`);
+        const allPhotos = [..._photos, ...morePhotos.data];
+        setPhotos(allPhotos);
+        setIsLoading(false);
     };
 
     const { modal, showModal } = useModal();
@@ -52,11 +52,8 @@ const PhotoGrid: FC<PhotoGridProps> = ({
     const targetLoadMore = useRef(null);
     const isOnScreen = useOnScreen(targetLoadMore);
 
-    useEffect(() => {
-        if(isOnScreen) {
-            loadMorePhotos();
-        }
-    }, [isOnScreen]);
+    if (isOnScreen && hasMorePhotos() && !isLoading)
+        loadMorePhotos();
 
     return <div>
         {/* Photo Grid */}
@@ -69,9 +66,10 @@ const PhotoGrid: FC<PhotoGridProps> = ({
                 padding: '1rem',
                 boxSizing: 'border-box',
                 listStyleType: 'none',
-                maxWidth: '100%',
                 width: '90ch',
+                maxWidth: '100%',
                 ['@media screen and ( max-width: 100ch )']: {
+                    gap: '0.75rem',
                     gridTemplateColumns: `repeat(${columnsMobile}, 1fr)`,
                 },
                 ['img']: {
@@ -95,29 +93,38 @@ const PhotoGrid: FC<PhotoGridProps> = ({
                     onClick={() => iamgeModalClickHandler(photo)}
                     disabled={disableModal}
                 >
-                <Image
+                {/* eslint-disable-next-line */}
+                <img
                     css={{
                         aspectRatio: '1 / 1',
+                        maxWidth: '100%',
+                        height: 'auto',
                     }}
                     src={photo.sizes['co-gallery']}
                     height={photo.sizes['co-gallery-height']}
                     width={photo.sizes['co-gallery-width']}
                     alt={photo.alt}
+                    loading='lazy'
                 />
                 </button>
             </li>)}
-            {FinalItem && <li>{<FinalItem />}</li>}
+            {FinalItem && <li
+                css={{
+                    gridColumn: '1 / 4',
+                }}
+            >{<FinalItem />}</li>}
         </ul>
         {/* Modal */}
         <Modal {...modal}>
             <div
                 css={{
                     display: 'flex',
-                    alignItems: 'center',
+                    flexDirection: 'column',
+                    alignItems: 'stretch',
                     justifyContent: 'center',
                 }}
             >
-                {isModalImageLoading && <div css={{ backgroundColor: 'pink' }}>Loading...</div>}
+                {isModalImageLoading && <Loading />}
                 {/* eslint-disable-next-line */}
                 <img
                     src={modalImage?.sizes.full}
@@ -131,9 +138,13 @@ const PhotoGrid: FC<PhotoGridProps> = ({
                 />
             </div>
         </Modal>
-        {(hasMorePhotos && infiniteScroll) && <div>
-            <span ref={targetLoadMore}></span>
+        {isLoading && <div css={{ height: '300px' }}>
+            <Loading />
         </div>}
+        {(hasMorePhotos() && infiniteScroll) && <div>
+            <span css={{ display: 'block', height: '100px', }} ref={targetLoadMore}></span>
+        </div>}
+        <br/>
     </div>;
 };
 

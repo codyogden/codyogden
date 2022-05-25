@@ -8,7 +8,7 @@
                 "type": "wordpress-plugin",
                 "dist": {
                     "type": "zip",
-                    "url": "https://connect.advancedcustomfields.com/index.php?a=download&p=pro&k={%ACF_LICENSE_KEY}"
+                    "url": "https://connect.advancedcustomfields.com/index.php?a=download&p=pro&k={%ACF_PRO_LICENSE}"
                 },
                 "require": {
                     "composer/installers": "^1.4",

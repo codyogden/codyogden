@@ -13,3 +13,38 @@ body {
 a {
     color: #1F8DD6;
 }
+
+.content {
+    display: grid;
+    grid-template-columns: 1fr 1fr min(65ch, 95%) 1fr 1fr;
+    * {
+        grid-column: 3;
+        &.alignwide {
+            grid-column: 2 / 5;
+        }
+        &.alignfull {
+            grid-column: 1 / 6;
+        }
+    }
+    img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+    }
+    ul,
+    ol,
+    dl,
+    p {
+        line-height: 2;
+    }
+}
+
+hr {
+    background-color: #e5e7e9;
+    border: 0;
+    height: 1px;
+    margin: 1.66667em 0;
+    @extend .alignwide;
+}
+
+@import 'wordpress';

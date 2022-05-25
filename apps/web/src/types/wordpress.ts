@@ -8,7 +8,7 @@ export interface Post extends PostType {
     slug: string;
     title: string;
     content: string;
-
+    featured_image: Photo | null;
 }
 
 export interface Page extends PostType {
