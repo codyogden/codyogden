@@ -22,7 +22,7 @@ jobs:
       - name: Build & Push
         uses: docker/build-push-action@v2
         with:
-          context: ./build
+          context: ./apps/wp
           file: ./apps/wp/Dockerfile
           build-args:
             ACF_PRO_LICENSE=${{ secrets.ACF_PRO_LICENSE }}
