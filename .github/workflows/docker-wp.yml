@@ -1,6 +1,6 @@
 name: WordPress Docker Image
 on:
-  pull_request:
+  push:
     branches:
       - next
     paths:
