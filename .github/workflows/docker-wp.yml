@@ -2,8 +2,9 @@ name: WordPress Docker Image
 on:
   pull_request:
     branches:
-      - main
       - next
+    paths:
+      - apps/wp/**
 jobs:
   build:
     name: Build Image & Push to Registry
