@@ -3,7 +3,6 @@
 RewriteEngine On
 RewriteCond %{HTTPS} off
 RewriteRule ^/?(.*) https://%{SERVER_NAME}/$1 [R,L]
-RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 RewriteBase /
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
