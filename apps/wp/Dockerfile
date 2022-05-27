@@ -19,4 +19,7 @@ COPY ./wp-content ./wp-content
 COPY ./wp-config.php .
 
 # Remove default `wp-content` dir & files
-RUN rm -rf /usr/src/wordpress/wp-content
+RUN rm -rf /usr/src/wordpress/wp-content \
+  && mkdir /var/www/html/wp-content/uploads \
+  && chown -R www-data:www-data /var/www/html/wp-content/uploads/* \
+  && chmod 755 /var/www/html/wp-content/uploads/*
