@@ -34,6 +34,8 @@ define( 'WP_ENVIRONMENT_TYPE', getenv( 'WORDPRESS_ENVIRONMENT_TYPE' ) );
 define( 'SENTRY_DSN', getenv( 'SENTRY_DSN' ) );
 define( 'HEADLESS_URL', getenv( 'HEADLESS_URL' ) );
 define( 'ACF_PRO_LICENSE', getenv( 'ACF_PRO_LICENSE' ) );
+define( 'FORCE_SSL_ADMIN', true );
+define( 'FORCE_SSL_LOGIN', true );
 
 require 'vendor/autoload.php';
 
