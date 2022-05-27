@@ -1,10 +1,10 @@
 name: WordPress Docker Image
 on:
   push:
+    paths:
+      - "apps/wp/**"
     branches:
       - next
-    paths:
-      - apps/wp/**
 jobs:
   build:
     name: Build Image & Push to Registry
