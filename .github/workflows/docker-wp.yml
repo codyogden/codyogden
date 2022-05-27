@@ -5,7 +5,7 @@ on:
       - main
       - next
     paths:
-      - apps/wp
+      - ./apps/wp
 jobs:
   build:
     name: Build Image & Push to Registry
