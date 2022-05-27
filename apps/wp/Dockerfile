@@ -17,7 +17,6 @@ WORKDIR /var/www/html
 COPY --from=vendor /build .
 COPY ./wp-content ./wp-content
 COPY ./wp-config.php .
-COPY ./.htaccess .
 
 # Remove default `wp-content` dir & files
 RUN rm -rf /usr/src/wordpress/wp-content
