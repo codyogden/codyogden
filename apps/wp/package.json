@@ -1,6 +1,6 @@
 {
     "name": "wp",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "scripts": {
         "build:image": "docker build --no-cache --build-arg ACF_PRO_LICENSE=$ACF_PRO_LICENSE .",
         "build": "composer install",
