@@ -1,8 +1,8 @@
 {
     "name": "wp",
     "scripts": {
-        "build:image": "docker build --no-cache --tag=cowp --build-arg ACF_PRO_LICENSE=$ACF_PRO_LICENSE .",
+        "build:image": "docker build --no-cache --build-arg ACF_PRO_LICENSE=$ACF_PRO_LICENSE .",
         "build": "composer install",
-        "dev": "composer install && docker compose up"
+        "dev": "docker compose up"
     }
 }
