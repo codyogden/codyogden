@@ -32,18 +32,32 @@ function codyogden_headless_get_featured_image( $post ) {
 
 // Get all posts
 function codyogden_headless_posts( $request ) {
-    $result = get_posts();
-    return rest_ensure_response(array_reduce($result, function( $p, $post ) {
+    $per_page = (isset( $request['per_page'] ) ) ? $request['per_page'] : 10;
+    $query = new WP_Query(
+    array(
+        'post_type'   => 'post',
+        'posts_per_page'    => $per_page,
+    ) );
+    $result = $query->get_posts();
+    $data = array_reduce($result, function( $p, $post ) {
         array_push($p, array(
             'id'                => $post->ID,
             'title'             => $post->post_title,
             'slug'              => $post->post_name,
             'date_gmt'          => $post->post_date_gmt,
             'date'              => $post->post_date,
+            'excerpt'           => get_the_excerpt( $post ),
             'featured_image'    => codyogden_headless_get_featured_image( $post ),
         ));
         return $p;
-    }, array()));
+    }, array());
+    return rest_ensure_response(array(
+        'meta'	=> array(
+			'total'	=> $query->found_posts,
+			'per_page'	=> $per_page,
+		),
+        'data'  => $data,
+    ));
 }
 
 // Return a single post by slug

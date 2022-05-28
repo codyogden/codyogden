@@ -42,7 +42,7 @@ function headless_revalidate_page( $post ) {
     $path = headless_get_path( $post );
     if($path) {
         try {
-            $headless_client->request('GET', '/api/revalidate?token=hello-world&path=' . $path);
+            $headless_client->request('GET', '/api/revalidate?token=' . HEADLESS_REVALIDATE_TOKEN . '&path=' . $path);
         } catch (Exception $e) {
             throw new Error($e->getMessage());
         }
@@ -54,8 +54,8 @@ function headless_revalidate_post( $post ) {
     $path = headless_get_path( $post );
     if($path) {
         try {
-            $headless_client->request('GET', '/api/revalidate?token=hello-world&path=' . $path);
-            $headless_client->request('GET', '/api/revalidate?token=hello-world&path=/blog');
+            $headless_client->request('GET', '/api/revalidate?token=' . HEADLESS_REVALIDATE_TOKEN . '&path=' . $path);
+            $headless_client->request('GET', '/api/revalidate?token=' . HEADLESS_REVALIDATE_TOKEN . '&path=/blog');
         } catch (Exception $e) {
             throw new Error($e->getMessage());
         }
@@ -65,7 +65,7 @@ function headless_revalidate_post( $post ) {
 function headless_revalidate_photos( $post ) {
     global $headless_client;
     try {
-        $headless_client->request('GET', '/api/revalidate?token=hello-world&path=/photos');
+        $headless_client->request('GET', '/api/revalidate?token=' . HEADLESS_REVALIDATE_TOKEN . '&path=/photos');
     } catch (Exception $e) {
         throw new Error($e->getMessage());
     }
@@ -73,7 +73,7 @@ function headless_revalidate_photos( $post ) {
 
 add_action('save_post', function( $post_id, $post, $update ) {
     global $headless_client;
-    $headless_client->request('GET', '/api/revalidate?token=hello-world&path=/');
+    $headless_client->request('GET', '/api/revalidate?token=' . HEADLESS_REVALIDATE_TOKEN . '&path=/');
     if( function_exists( 'headless_revalidate_' . $post->post_type ) ) {
         ('headless_revalidate_' . get_post( $post_id )->post_type)( get_post( $post_id ) );
     }
