@@ -1,27 +1,28 @@
+import BlogGrid from '@components/BlogGrid';
 import { GetStaticPropsResult, NextPage } from 'next';
 import Link from 'next/link';
+import { HeadlessResponse } from 'src/types/headless';
 import fetcher from 'src/utils/fetcher';
 
 import { Post } from '../../types/wordpress';
 
 interface BlogRollProps {
-    posts: Post[];
+    posts: HeadlessResponse<Post>;
 }
 
 const BlogRoll: NextPage<BlogRollProps> = ({
     posts
 }) => {
     return <>
-        <ul>
-            {posts.map(({ id, slug, title }) => <li key={`post-${id}`}>
-                <Link href={`/blog/${slug}`}>{title}</Link>
-            </li>)}
-        </ul>
+        <BlogGrid
+            posts={posts}
+            columns={2}
+        />
     </>;
 };
 
 export const getStaticProps = async (): Promise<GetStaticPropsResult<BlogRollProps>> => {
-    const posts = await fetcher(`${process.env.NEXT_PUBLIC_WP_URL}/wp-json/headless/v1/posts`);
+    const posts: HeadlessResponse<Post> = await fetcher(`${process.env.NEXT_PUBLIC_WP_URL}/wp-json/headless/v1/posts`);
     return {
         props: {
             posts,

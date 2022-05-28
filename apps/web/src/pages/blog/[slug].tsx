@@ -1,4 +1,6 @@
+import FormatDate from '@components/FormatDate';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsResult, NextPage } from 'next';
+import { HeadlessResponse } from 'src/types/headless';
 import { Post } from 'src/types/wordpress';
 import fetcher from 'src/utils/fetcher';
 
@@ -14,6 +16,17 @@ const BlogPost: NextPage<BlogPostProps> = ({
             <header
             className='content'
             >
+                <div>
+                        <FormatDate
+                            css={{
+                                fontSize: '0.9rem',
+                                color: 'rgb(161, 161, 161)',
+                                textTransform: 'uppercase',
+                                letterSpacing: '1px',
+                            }}
+                            dateTime={post.date_gmt}
+                        />
+                </div>
                 <h1>{post.title}</h1>
                 {/* eslint-disable-next-line */}
                 {post.featured_image && <img
@@ -48,8 +61,8 @@ export const getStaticProps: GetStaticProps = async ({ params }): Promise<GetSta
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const posts: Post[] = await fetcher(`${process.env.NEXT_PUBLIC_WP_URL}/wp-json/headless/v1/posts`);
-    const paths = posts.reduce((p, c) => {
+    const posts: HeadlessResponse<Post> = await fetcher(`${process.env.NEXT_PUBLIC_WP_URL}/wp-json/headless/v1/posts`);
+    const paths = posts.data.reduce((p, c) => {
         p.push({
             params: {
                 slug: c.slug,
