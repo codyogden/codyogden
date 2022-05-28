@@ -9,6 +9,7 @@ export interface Post extends PostType {
     title: string;
     content: string;
     featured_image: Photo | null;
+    excerpt: string;
 }
 
 export interface Page extends PostType {
