@@ -62,7 +62,7 @@ export const getStaticProps: GetStaticProps = async ({ params }): Promise<GetSta
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const posts: HeadlessResponse<Post> = await fetcher(`${process.env.NEXT_PUBLIC_WP_URL}/wp-json/headless/v1/posts`);
-    const paths = posts.data.reduce((p, c) => {
+    const paths = posts.data?.reduce((p, c) => {
         p.push({
             params: {
                 slug: c.slug,
