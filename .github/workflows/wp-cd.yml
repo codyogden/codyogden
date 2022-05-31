@@ -2,7 +2,7 @@ name: WordPress
 on:
   push:
     paths:
-      - apps/wp/*
+      - 'apps/wp'
 jobs:
   deploy:
     runs-on: ubuntu-latest
