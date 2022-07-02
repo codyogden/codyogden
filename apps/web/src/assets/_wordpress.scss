@@ -1,3 +1,83 @@
 .wp-block-image {
     margin: 0;
 }
+
+.wp-block-gallery {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0;
+    padding: 1rem 0;
+    gap: 1rem;
+    justify-content: space-between;
+    &.columns-default figure {
+        flex: 1 0 calc((100% / 3) - 1rem);
+    }
+    @for $i from 1 through 6 {
+        &.columns-#{$i} figure {
+            flex: 1 0 calc((100% / #{$i}) - 1rem);
+        }
+    }
+
+    img {
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+    }
+}
+
+.has-text-align {
+    &-center {
+        text-align: center;
+    }
+    &-right {
+        text-align: right;
+    }
+    &-left {
+        text-align: left;
+    }
+}
+
+.wp-block-quote {
+    margin: 1rem 0;
+    border-radius: 1px;;
+    p {
+        margin: 0;
+    }
+    p + cite {
+        display: block;
+        text-align: right;
+        margin: 0.25rem 0;
+
+        &:before {
+            content: '- ';
+            display: inline;
+        }
+    }
+    &.is-style-default {
+        p {
+            padding: 1.5rem;
+            box-sizing: border-box;
+            border-left: 8px solid #1F8DD6;
+            background-color: #EDEDED;
+        }
+    }
+    &.is-style-plain {
+        p {
+            padding: 1.5rem;
+            box-sizing: border-box;
+            background-color: #EDEDED;
+        }
+    }
+    &.is-style-large {
+        margin: 1.5rem 0;
+        p {
+            font-size: 1.5rem;
+            background-color: #EDEDED;
+            padding: 2.25rem 2rem;
+            box-sizing: border-box;
+        }
+        @extend .alignwide;
+        p {
+            line-height: 1.45;
+        }
+    }
+}

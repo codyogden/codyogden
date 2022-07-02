@@ -33,7 +33,6 @@ const PhotoGrid: FC<PhotoGridProps> = ({
     const [isLoading, setIsLoading] = useState(false);
     const loadMorePhotos = async () => {
         setIsLoading(true);
-        console.log('request');
         const morePhotos = await fetcher(`/api/headless/photos?offset=${_photos.length}&per_page=${perPage}`);
         const allPhotos = [..._photos, ...morePhotos.data];
         setPhotos(allPhotos);

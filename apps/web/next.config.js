@@ -13,7 +13,7 @@ module.exports = {
         return [
             {
                 source: '/api/headless/:path*',
-                destination: 'http://localhost:8080/wp-json/headless/v1/:path*',
+                destination: `${process.env.NEXT_PUBLIC_WP_URL}/wp-json/headless/v1/:path*`,
             }
         ]
     }

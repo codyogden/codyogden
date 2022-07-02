@@ -32,11 +32,13 @@ function codyogden_headless_get_featured_image( $post ) {
 
 // Get all posts
 function codyogden_headless_posts( $request ) {
+    $offset = (isset($request['offset']) && $request['offset'] >= 0) ? $request['offset'] : 0;
     $per_page = (isset( $request['per_page'] ) ) ? $request['per_page'] : 10;
     $query = new WP_Query(
     array(
-        'post_type'   => 'post',
-        'posts_per_page'    => $per_page,
+        'post_type'         => 'post',
+        'posts_per_page'    => intval( $per_page ),
+        'offset'            => intval( $offset )
     ) );
     $result = $query->get_posts();
     $data = array_reduce($result, function( $p, $post ) {
@@ -53,6 +55,7 @@ function codyogden_headless_posts( $request ) {
     }, array());
     return rest_ensure_response(array(
         'meta'	=> array(
+            'offset'    => $offset,
 			'total'	=> $query->found_posts,
 			'per_page'	=> $per_page,
 		),
@@ -149,6 +152,7 @@ function codyogden_headless_page( $request ) {
         'content'   => $content ?? null,
         'date_gmt'  => $post->post_date_gmt ?? null,
         'date'      => $post->post_date ?? null,
+        'fields'    => get_fields( $post->ID ),
     ));
 }
 

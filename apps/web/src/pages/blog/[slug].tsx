@@ -1,5 +1,9 @@
 import FormatDate from '@components/FormatDate';
+import Layout from '@components/Layout';
+import SRT from '@components/SRT';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsResult, NextPage } from 'next';
+import Head from 'next/head';
+import { useEffect } from 'react';
 import { HeadlessResponse } from 'src/types/headless';
 import { Post } from 'src/types/wordpress';
 import fetcher from 'src/utils/fetcher';
@@ -11,39 +15,61 @@ interface BlogPostProps {
 const BlogPost: NextPage<BlogPostProps> = ({
     post
 }) => {
-    return <>
-        <article>
+    return <Layout>
+        <Head>
+            <title>{post.title} - Cody Ogden</title>
+        </Head>
+        <article css={{
+            marginBottom: 500,
+        }}>
             <header
-            className='content'
+                className='content'
             >
-                <div>
+                <div
+                    css={{
+                        display: 'flex',
+                        flexFlow: 'column nowrap',
+                        paddingTop: '10vh',
+                    }}
+                >
+                    <h1 css={{
+                        fontSize: '2rem',
+                        margin: '0.5rem 0 1rem 0',
+                        order: 2,
+                    }}>{post.title}</h1>
+                    <div css={{ order: 1 }}>
+                        <SRT>Published on</SRT>
                         <FormatDate
                             css={{
-                                fontSize: '0.9rem',
+                                fontSize: '0.75rem',
                                 color: 'rgb(161, 161, 161)',
                                 textTransform: 'uppercase',
-                                letterSpacing: '1px',
+                                letterSpacing: '2px',
+                                fontWeight: 'lighter',
                             }}
                             dateTime={post.date_gmt}
                         />
+                    </div>
+                    {post.featured_image && <div css={{ order: 3 }}>
+                        {/* eslint-disable-next-line */}
+                        <img
+                            css={{
+                                maxWidth: '100%',
+                                display: 'block',
+                            }}
+                            src={post.featured_image.sizes.full}
+                            alt={post.featured_image.alt}
+                        />
+                    </div>}
+                    
                 </div>
-                <h1>{post.title}</h1>
-                {/* eslint-disable-next-line */}
-                {post.featured_image && <img
-                    css={{
-                        maxWidth: '100%',
-                        display: 'block',
-                    }}
-                    src={post.featured_image.sizes.full}
-                    alt={post.featured_image.alt}
-                />}
             </header>
             <main
                 className='content'
                 dangerouslySetInnerHTML={{ __html: post.content }}
             />
         </article>
-    </>;
+    </Layout>;
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }): Promise<GetStaticPropsResult<BlogPostProps>> => {

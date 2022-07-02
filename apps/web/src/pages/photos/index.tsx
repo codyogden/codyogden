@@ -20,6 +20,12 @@ const PhotosPage: NextPage<PhotosPageProps> = ({
         <Head>
             <title>Photos - Cody Ogden</title>
         </Head>
+        <div css={{
+            textAlign: 'center',
+        }}>
+            <h1 css={{ marginBottom: '0.5rem' }}>Photos</h1>
+            <p css={{ marginTop: 0 }}>Snapshots from here and there.</p>
+        </div>
         <PhotoGrid
             photos={photos}
             perPage={perPage}

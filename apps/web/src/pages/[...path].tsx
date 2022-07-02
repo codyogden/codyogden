@@ -15,8 +15,13 @@ const Page: NextPage<PageProps> = ({
         <Head>
             <title>{page.title} - Cody Ogden</title>
         </Head>
-        <h1>{page.title}</h1>
-        <main dangerouslySetInnerHTML={{ __html: page.content }} />
+        <div css={{
+            textAlign: 'center',
+        }}>
+            <h1 css={{ marginBottom: '0.5rem' }}>{page.title}</h1>
+            {page.fields?.subtitle && <p css={{ marginTop: 0 }}>{page.fields.subtitle}</p>}
+        </div>
+        <main className='content' dangerouslySetInnerHTML={{ __html: page.content }} />
     </Layout>;
 };
 

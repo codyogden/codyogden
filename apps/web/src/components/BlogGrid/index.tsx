@@ -1,11 +1,14 @@
 import FormatDate from '@components/FormatDate';
 import Link from 'next/link';
-import { FC, HTMLAttributes } from 'react';
+import { FC, HTMLAttributes, useRef, useState } from 'react';
+import useOnScreen from 'src/hooks/useOnScreen';
 import { HeadlessResponse } from 'src/types/headless';
 import { Post } from 'src/types/wordpress';
+import fetcher from 'src/utils/fetcher';
 
 interface BlogGridProps extends HTMLAttributes<HTMLDivElement> {
     posts: HeadlessResponse<Post>;
+    infiniteScroll?: boolean;
     columns?: number;
     columnsMobile?: number;
     FinalItem?: FC;
@@ -13,112 +16,61 @@ interface BlogGridProps extends HTMLAttributes<HTMLDivElement> {
 
 const BlogGrid: FC<BlogGridProps> = ({
     posts,
+    infiniteScroll,
     columns = 3,
     columnsMobile = 1,
     FinalItem,
 }) => {
+    const [_posts, setPosts] = useState<Post[]>(posts.data);
+    const hasMorePosts = () => _posts.length < posts.meta.total;
+    const [isLoading, setIsLoading] = useState(false);
+    const loadMorePosts = async () => {
+        setIsLoading(true);
+        const morePosts = await fetcher(`/api/headless/posts?offset=${_posts.length}&per_page=${posts.meta.per_page}`);
+        const allPosts = [..._posts, ...morePosts.data];
+        setPosts(allPosts);
+        setTimeout(() => setIsLoading(false), 500);
+    };
+
+    const targetLoadMore = useRef(null);
+    const isOnScreen = useOnScreen(targetLoadMore);
+
+    if (isOnScreen && hasMorePosts() && !isLoading)
+        loadMorePosts();
+
     return <>
         <ul
             css={{
                 listStyleType: 'none',
                 margin: '0 auto',
-                padding: '1rem',
+                padding: '1rem 0',
                 boxSizing: 'border-box',
                 display: 'grid',
                 gridTemplateColumns: `repeat(${columns}, 1fr)`,
-                width: '90ch',
-                maxWidth: '100%',
+                width: '100%',
                 alignItems: 'stretch',
-                gap: '1.5rem',
-                ['@media screen and ( max-width: 90ch )']: {
-                    gap: '0.75rem',
-                    gridTemplateColumns: `repeat(${columnsMobile}, 1fr)`,
-                },
             }}
         >
-            {posts?.data?.map((post, index) => {
+            {_posts?.map((post, index) => {
                 const { id, title, slug, featured_image, date_gmt, excerpt } = post;
                 return <li
                 key={`post-${id}-${index}`}>
                     <Link href={`/blog/${slug}`} passHref>
-                    <a
-                        css={{
-                            display: 'grid',
-                            gridTemplateRows: '150px 1fr',
-                            alignItems: 'stretch',
-                            height: '100%',
-                            width: '100%',
-                            backgroundColor: '#fff',
+                        <a css={{
                             textDecoration: 'none',
-                            color: 'currentColor',
-                            borderRadius: '1px',
-                            overflow: 'hidden',
-                        }}
-                        ><div
-                            css={{
-                                height: '150px',
-                            }}
-                        >
-                            {featured_image && <>
-                                {/* eslint-disable-next-line */}
-                                    <img
-                                        css={{
-                                            display: 'block',
-                                            width: '100%',
-                                            objectFit: 'cover',
-                                            height: '150px',
-                                            userSelect: 'none',
-                                            ['@media screen and ( max-width: 90ch )']: {
-                                                height: '150px',
-                                            },
-                                        }}
-                                        src={featured_image.sizes.medium}
-                                        alt={featured_image.alt}
-                                        aria-hidden
-                                    />
-                                </>}
-                            </div>
-                            <div
-                                css={{
-                                    boxSizing: 'border-box',
-                                    padding: '1rem 1rem',
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    border: '1px solid #eee',
-                                    borderTop: 0,
-                                }}
-                            >
-                                    
-                                    <div
-                                        css={{
-                                            fontWeight: 'bold',
-                                            fontSize: '1.25rem',
-                                            marginTop: '0.25rem',
-                                            order: 2,
-                                            margin: '0.5rem 0',
-                                        }}
-                                    >
-                                        {title}
-                                    </div>
-                                    <FormatDate css={{
-                                        order: 1,
-                                        display: 'block',
-                                        fontSize: '0.75rem',
-                                        color: 'rgb(161, 161, 161)',
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '1px',
-                                    }} dateTime={date_gmt} />
-                                <p
-                                    css={{
-                                            color: 'rgb(128, 128, 128)',
-                                            order: 3,
-                                            fontSize: '0.9rem',
-                                            lineHeight: '1.45',
-                                            margin: 0
-                                        }}
-                                    dangerouslySetInnerHTML={{ __html: excerpt?.substring(0, 145) }}
-                                />
-                            </div>
+                            display: 'flex',
+                            flexFlow: 'column nowrap',
+                            padding: '1rem 1rem',
+                            margin: '0.5rem 0',
+                            lineHeight: '1.5 !important',
+                            transition: 'background-color 110ms linear',
+                            [':hover']: {
+                                backgroundColor: 'rgba(238,238,238, 0.65)',
+                            }
+                        }}>
+                            <div css={{ order: 2, fontSize: '1.25rem' }}>{title}</div>
+                            <FormatDate dateTime={date_gmt} css={{ order: 1, color: 'rgb(161, 161, 161)', marginBottom: 0, letterSpacing: '2px', fontSize: '0.8rem', textTransform: 'uppercase', display: 'block', }} />
+                            <p css={{ fontSize: '0.9rem', order: 3, margin: 0, marginTop: 0, color: '#000', }}>{excerpt}</p>
                         </a>
                     </Link>
                 </li>;
@@ -136,6 +88,10 @@ const BlogGrid: FC<BlogGridProps> = ({
                     <FinalItem />
                 </li>}
         </ul>
+        {(hasMorePosts() && infiniteScroll) && <div>
+            more
+            <span css={{ display: 'block', height: '100px', }} ref={targetLoadMore}></span>
+        </div>}
     </>;
 };
 

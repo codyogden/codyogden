@@ -2,6 +2,9 @@ export interface PostType {
     id: number;
     date_gmt: string;
     date: string;
+    fields?: {
+        [key: string]: any;
+    }
 }
 
 export interface Post extends PostType {
@@ -27,4 +30,8 @@ export interface Photo extends PostType {
         'full-width': string;
         'full-height': string;
     }
+}
+
+export interface UsesItem extends PostType {
+    title: string;
 }
