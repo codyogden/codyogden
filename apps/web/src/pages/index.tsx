@@ -2,6 +2,7 @@ import BlogGrid from '@components/BlogGrid';
 import FormatDate from '@components/FormatDate';
 import Layout from '@components/Layout';
 import { GetStaticProps, NextPage } from 'next';
+import Head from 'next/head';
 import Link from 'next/link';
 import { HeadlessResponse } from 'src/types/headless';
 import { Photo, Post } from 'src/types/wordpress';
@@ -15,6 +16,9 @@ const IndexPage: NextPage<IndexPageProps> = ({
     posts,
 }) => {
     return <Layout>
+        <Head>
+            <title>Cody Ogden</title>
+        </Head>
         <div className='content'>
             <BlogGrid infiniteScroll columns={1} posts={posts} />
         </div>
