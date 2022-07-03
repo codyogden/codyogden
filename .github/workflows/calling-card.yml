@@ -2,7 +2,7 @@ name: Build Calling Card
 on:
   push:
       paths:
-      - 'apps/card/**'
+      - 'apps/calling-card/**'
 jobs:
   build:
     runs-on: ubuntu-latest
