@@ -1,0 +1,21 @@
+{
+    "presets": [
+        [
+            "@babel/preset-env",
+            {
+                "targets": {
+                    "browsers": "last 2 versions"
+                },
+                "loose": true,
+                "modules": false
+            }
+        ]
+    ],
+    "env": {
+        "test": {
+            "presets": [
+                "@babel/env"
+            ]
+        }
+    }
+}
