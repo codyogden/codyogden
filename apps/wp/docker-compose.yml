@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   wp:
-    image: wordpress:php8.0
+    image: wordpress:php8.1
     volumes:
       - ./wp-content:/var/www/html/wp-content
       - ./vendor:/var/www/html/vendor

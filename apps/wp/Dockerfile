@@ -10,7 +10,7 @@ COPY composer.lock composer.lock
 
 RUN composer install --no-interaction
 
-FROM wordpress:php8.0 as production
+FROM wordpress:php8.1 as production
 
 WORKDIR /var/www/html
 
