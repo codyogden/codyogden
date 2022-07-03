@@ -8,7 +8,7 @@
 
 A calling card is a small card bearing a person's name and address<br/>that is sent or left in lieu of a formal social or business visit.
     
-[![Build Status](https://github.com/codyogden/calling-card/workflows/build/badge.svg)](https://actions-badge.atrox.dev/codyogden/calling-card/goto) [![Website](https://img.shields.io/website?down_message=offline&label=status&up_message=online&url=https%3A%2F%2Fcard.codyogden.com%2Fcard.js)](#) [![Netlify Status](https://api.netlify.com/api/v1/badges/5f923c78-2e62-4300-91c3-157e14da60bd/deploy-status)](https://app.netlify.com/sites/calling-card/deploys)
+[![Build Status](https://github.com/codyogden/calling-card/workflows/build/badge.svg)](https://actions-badge.atrox.dev/codyogden/calling-card/goto) [![Website](https://img.shields.io/website?down_message=offline&label=status&up_message=online&url=https%3A%2F%2Fcard.codyogden.com%2Fcard.js)](#)
 
 </div>
 
