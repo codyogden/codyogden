@@ -80,6 +80,7 @@ const Page: NextPage<PageProps> = ({
                 <div css={{
                     aspectRatio: '1 / 1',
                     }}>
+                    {/* eslint-disable-next-line */}
                     <img
                         css={{
                             display: 'block',
@@ -92,6 +93,7 @@ const Page: NextPage<PageProps> = ({
                             }
                         }}
                         src={fields.image.sizes.full}
+                        alt={`${title} by ${fields.company}`}
                         loading='lazy'
                     />
                 </div>
