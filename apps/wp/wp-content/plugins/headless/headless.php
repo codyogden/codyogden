@@ -71,6 +71,15 @@ function headless_revalidate_photos( $post ) {
     }
 }
 
+function headless_revalidate_uses( $post ) {
+    global $headless_client;
+    try {
+        $headless_client->request('GET', '/api/revalidate?token=' . HEADLESS_REVALIDATE_TOKEN . '&path=/uses');
+    } catch (Exception $e) {
+        throw new Error($e->getMessage());
+    }
+}
+
 add_action('save_post', function( $post_id, $post, $update ) {
     global $headless_client;
     $headless_client->request('GET', '/api/revalidate?token=' . HEADLESS_REVALIDATE_TOKEN . '&path=/');
