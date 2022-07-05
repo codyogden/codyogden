@@ -35,6 +35,9 @@ const Layout: FC<HTMLAttributes<HTMLDivElement>> = ({
                         <Link href='/about' passHref><a>bio</a></Link>
                     </li>
                     <li>
+                        <Link href='/uses' passHref><a>uses</a></Link>
+                    </li>
+                    <li>
                         <Link href='/photos' passHref><a>photos</a></Link>
                     </li>
                 </ul>
