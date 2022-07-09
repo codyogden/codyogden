@@ -8,7 +8,7 @@ import { HeadlessResponse } from 'src/types/headless';
 import { Post } from 'src/types/wordpress';
 import fetcher from 'src/utils/fetcher';
 
-interface BlogPostProps {
+export interface BlogPostProps {
     post: Post;
 }
 
