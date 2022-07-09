@@ -65,11 +65,13 @@ function codyogden_headless_posts( $request ) {
 
 // Return a single post by slug
 function codyogden_headless_post( $request ) {
+    $is_preview = (isset($request['preview']) && $request['preview'] === 'true');
     $query = new WP_Query(
         array(
             'name'   => $request['slug'],
             'post_type'   => 'post',
             'numberposts' => 1,
+            'post_status'   => ($is_preview) ? 'draft' : 'publish',
         ) );
     $posts = $query->get_posts();
     $post = array_shift( $posts );
@@ -203,3 +205,18 @@ function codyogden_headless_page( $request ) {
         
     }
 );
+
+add_filter( 'preview_post_link', 'the_preview_fix' );
+add_filter( 'post_link', 'the_view_fix' );
+
+function the_preview_fix() {
+    global $post;
+    $slug = $post->post_name;
+    return HEADLESS_URL . '/blog/preview/' . $slug;
+}
+
+function the_view_fix() {
+    global $post;
+    $slug = $post->post_name;
+    return HEADLESS_URL . "/blog/" . $slug;
+}
