@@ -220,3 +220,45 @@ function the_view_fix() {
     $slug = $post->post_name;
     return HEADLESS_URL . "/blog/" . $slug;
 }
+
+// workaround script until there's an official solution for https://github.com/WordPress/gutenberg/issues/13998
+function fix_preview_link_on_draft() {
+    global $post;
+    $slug = $post->post_name;
+    $preview_link = HEADLESS_URL . "/blog/preview/" . $slug;
+	echo '<script type="text/javascript">
+	jQuery(document).ready(function () {
+		const checkPreviewInterval = setInterval(checkPreview, 1000);
+		function checkPreview() {
+			const editorPreviewButton = jQuery(".edit-post-header-preview__button-external");
+
+			if (editorPreviewButton.length && editorPreviewButton.attr("href") !== "' . $preview_link . '" ) {
+				editorPreviewButton.attr("href", "' . $preview_link . '");
+				editorPreviewButton.off();
+				editorPreviewButton.click(false);
+				editorPreviewButton.on("click", function(e) {
+					const editorPostSaveDraft = jQuery(".editor-post-save-draft");
+
+					if(editorPostSaveDraft.length > 0) {
+						editorPostSaveDraft.click();
+					}
+					const intervalId = setInterval(function() {
+						// find out when the post is saved
+						let saved = document.querySelector(".is-saved");
+						if(saved) {
+							clearInterval(intervalId);
+							const win = window.open("' . $preview_link . '", "_blank");
+							if (win) {
+								win.focus();
+							}
+						}
+					}, 50);
+				});
+			}
+		}
+	});
+	</script>';
+}
+add_action( 'admin_footer-edit.php', 'fix_preview_link_on_draft' ); // Fired on the page with the posts table
+add_action( 'admin_footer-post.php', 'fix_preview_link_on_draft' ); // Fired on post edit page
+add_action( 'admin_footer-post-new.php', 'fix_preview_link_on_draft' ); // Fired on add new post page
