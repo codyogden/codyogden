@@ -23,6 +23,6 @@
     },
     "scripts": {
         "build": "yarn webpack -p",
-        "dev": "yarn webpack-dev-server --mode=development"
+        "dev": "yarn webpack-dev-server --port=4000 --mode=development"
     }
 }
