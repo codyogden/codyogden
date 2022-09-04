@@ -10,16 +10,8 @@ module.exports = {
             url: 'https://codyogden.com'
         },
         {
-            name: '@killedbygoogle',
-            url: 'https://twitter.com/killedbygoogle'
-        },
-        {
             name: 'GitHub',
             url: 'https://github.com/codyogden'
-        },
-        {
-            name: 'Blog',
-            url: 'https://codyogden.com/blog'
         }
     ],
     styles,
