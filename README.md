@@ -4,4 +4,4 @@ I’ve been crafting on the web since 2001, and it all started with a JavaScript
 
 I live in [Minneapolis, Minnesota](https://en.wikipedia.org/wiki/Minneapolis) with my black goldendoodle, Olly.
 
-<a rel="me" href="https://mastodon.social/@codyogden">&nbsp;</a>
+<a rel="me nofollow" href="https://mastodon.social/@codyogden">&nbsp;</a>
