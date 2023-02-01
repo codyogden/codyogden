@@ -4,9 +4,12 @@
     ],
     "scripts": {
         "build": "turbo run build",
-        "dev": "turbo run dev"
+        "dev": "dotenv -- turbo dev"
     },
     "devDependencies": {
         "turbo": "^1.7.1"
+    },
+    "dependencies": {
+        "dotenv-cli": "^7.0.0"
     }
 }
