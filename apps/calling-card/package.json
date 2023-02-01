@@ -1,6 +1,6 @@
 {
     "name": "calling-card",
-    "version": "1.0.1",
+    "version": "1.0.0",
     "main": "dist/card.js",
     "source": "src/index.js",
     "repository": "git@github.com:codyogden/calling-card.git",
