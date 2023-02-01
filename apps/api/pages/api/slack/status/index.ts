@@ -23,14 +23,14 @@ const handler: NextApiHandler = async (req, res) => {
         return res.status(400).end();
     }
 
-    // await web.users.profile.set({
-    //     profile: JSON.stringify({
-    //         status_text: (text) || '',
-    //         status_emoji: (emoji) ? `:${String(emoji)}:` : '',
-    //         status_expiration: ((expires && Number(expires) && expires !== '0') && (emoji || text)) ? (Math.round(Date.now() / 1000)) + (Number(expires) * 60) : 0,
-    //     }),
-    // });
-    // res.status(200).send('ok');
+    await web.users.profile.set({
+        profile: JSON.stringify({
+            status_text: (text) || '',
+            status_emoji: (emoji) ? `:${String(emoji)}:` : '',
+            status_expiration: ((expires && Number(expires) && expires !== '0') && (emoji || text)) ? (Math.round(Date.now() / 1000)) + (Number(expires) * 60) : 0,
+        }),
+    });
+    return res.status(200).send('ok');
 };
 
 export default handler;
