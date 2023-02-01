@@ -1,0 +1,14 @@
+{
+    "name": "api",
+    "version": "1.0.0",
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build"
+    },
+    "dependencies": {
+        "@slack/web-api": "^6.8.1",
+        "next": "^13.1.6",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+    }
+}

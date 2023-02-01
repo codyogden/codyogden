@@ -1,0 +1,44 @@
+@baseUrl = http://localhost:3000/api/slack/status
+@token = 7d9I8t2YtPEf6SRmi8mP0gtaYukCWI10gGMahBW6BswNrqPFVhc6VwwD6BGMkv7A
+
+### Focused work
+GET {{baseUrl}}
+    ?token={{token}}
+    &emoji=heads-down
+    &text=Focused work
+    &expires=240
+
+### Walking the dog
+GET {{baseUrl}}
+    ?token={{token}}
+    &emoji=walking-the-dog
+    &text=
+    &expires=30
+
+### Grabbing food
+GET {{baseUrl}}
+    ?token={{token}}
+    &emoji=knife_fork_plate
+    &text=Grabbing food
+    &expires=60
+
+### Clear Status
+GET {{baseUrl}}
+    ?token={{token}}
+    &emoji=
+    &text=
+    &expires=0
+
+### Be right back
+GET {{baseUrl}}
+    ?token={{token}}
+    &emoji=brb_1
+    &text=Be right back
+    &expires=30
+
+### In a meeting
+GET {{baseUrl}}
+    ?token={{token}}
+    &emoji=date
+    &text=In a meeting
+    &expires=60
