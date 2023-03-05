@@ -3,6 +3,7 @@ export default function Page() {
         fontWeight: 'normal',
         display: 'grid',
         gridTemplateColumns: '1fr minmax(min(65ch, 100%), 1fr) 1fr',
+        marginTop: '6em',
     }}>
         <div style={{
             gridColumn: 2,
