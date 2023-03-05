@@ -7,6 +7,7 @@
     },
     "dependencies": {
         "@types/react": "^18.0.27",
+        "@vercel/edge": "^0.2.7",
         "eslint-config-next": "^13.1.6",
         "next": "^13.1.6",
         "react": "^18.2.0",
