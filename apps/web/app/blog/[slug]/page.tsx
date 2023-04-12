@@ -1,5 +1,5 @@
 const Page = async ({ params }) => {
-    const { title, content } = await (await fetch('http://localhost:3000/api/blog', { cache: 'no-cache' })).json();
+    const { title, content } = await (await fetch(`${process.env.VERCEL_URL}/api/blog`, { cache: 'no-cache' })).json();
 
     return <>
         <h1>{title}</h1>

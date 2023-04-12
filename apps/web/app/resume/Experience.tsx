@@ -13,7 +13,7 @@ const Experience = () => <article style={{
                 gridTemplateColumns: '60px 1fr',
             }}>
             <div>
-                <img style={{ display: 'block' }} height={48} width={48} src={`http://localhost:8000/${employer.media.logo}`} />
+                <img style={{ display: 'block' }} height={48} width={48} src={`${process.env.ASSETS_URL}${employer.media.logo}`} />
             </div>
             <div>
                 <div style={{ fontSize: 16, lineHeight: '24px', fontWeight: 'bold' }}>{positions[0].name}{(positions[0].team) ? `, ${positions[0].team}` : ''}</div>
@@ -47,7 +47,7 @@ const Experience = () => <article style={{
             gridTemplateColumns: '60px 1fr',
         }}>
             <div>
-                <img style={{ display: 'block' }} height={48} width={48} src={`http://localhost:8000/${employer.media.logo}`} />
+                <img style={{ display: 'block' }} height={48} width={48} src={`${process.env.ASSETS_URL}/${employer.media.logo}`} />
             </div>
             <div>
                 <div style={{ fontSize: 16, lineHeight: '24px', fontWeight: 'bold' }}>{employer.name}</div>
