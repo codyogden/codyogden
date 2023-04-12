@@ -1,0 +1,54 @@
+.uses-grid {
+    display: grid;
+    padding: 0;
+    margin: 2em 0 0 0;
+    list-style-type: none;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.uses-grid li {
+    box-sizing: border-box;
+    padding: 8px;
+}
+
+.card {
+    box-sizing: border-box;
+    background-color: #f4f4f6;
+    padding: 12px;
+    border-radius: 8px;
+    transition: all 100ms linear;
+}
+
+.card:hover {
+    background-color: #EEEEF0;
+}
+
+.card img {
+    position: relative;
+    top: 0px;
+    transition: all 100ms linear;
+}
+
+.company a {
+    color: currentColor;
+    text-decoration: none;
+}
+
+@media screen and ( min-width: 700px ) {
+    .card:hover img {
+        top: -5px;
+        transition: all 100ms linear;
+    }
+}
+
+@media screen and ( max-width: 1040px ) {
+    .uses-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and ( max-width: 700px ) {
+    .uses-grid {
+        grid-template-columns: 1fr;
+    }
+}

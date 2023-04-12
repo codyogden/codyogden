@@ -2,14 +2,14 @@
     "name": "web",
     "version": "2.0.0",
     "scripts": {
-        "dev": "next",
+        "dev": "PORT=3000 next",
         "build": "next build"
     },
     "dependencies": {
         "@types/react": "^18.0.27",
         "@vercel/edge": "^0.2.7",
         "eslint-config-next": "^13.1.6",
-        "next": "^13.1.6",
+        "next": "^13.3.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0"
     }

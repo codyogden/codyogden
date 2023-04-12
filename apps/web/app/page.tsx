@@ -1,12 +1,22 @@
+import type { Metadata } from 'next'
+import Link from 'next/link';
+
+export const metadata: Metadata = {
+    title: 'Cody Ogden',
+    description: 'Cody Ogden',
+};
+
+
 export default function Page() {
     return <div style={{
-        fontWeight: 'normal',
         display: 'grid',
-        gridTemplateColumns: '1fr minmax(min(65ch, 100%), 1fr) 1fr',
+        gridTemplateColumns: '1fr 1fr minmax(min(65ch, 100%), 1fr) 1fr 1fr',
+    }}><div style={{
+        fontWeight: 'normal',
         marginTop: '6em',
+        gridColumn: 3,        
     }}>
         <div style={{
-            gridColumn: 2,
             lineHeight: 1.45,
  }}>
             <div style={{
@@ -19,7 +29,7 @@ export default function Page() {
             </p>
             <p>I've been crafting on the web since 2001, and it all started with a JavaScript program to help me cheat on math homework--fifth grade math is tough! I've held many hats in my career: individual contributor, technical lead, engineering manager, and company leadership. I've been lucky to work with companies like General Mills, Target, Best Buy, Rolex, and Charter Communications where I lead scalable, maintainable technology solutions that impact their business, people, and customers.</p>
             <p>You might know me as the groundskeeper at the <a href="https://killedbygoogle.com">Google graveyard</a> where I research Google's consumer product strategy and their 'killer' reputation.</p>
-            <p>My dog, Olly, and I live in Minneapolis, Minnesota.</p>
- </div>
-    </div>;
+            <p>My dog, Olly, and I live in San Francisco, California.</p>
+        </div>
+    </div></div>;
 }
