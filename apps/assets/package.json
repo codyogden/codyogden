@@ -1,0 +1,6 @@
+{
+    "name": "assets",
+    "scripts": {
+        "dev": "npx http-server -p 8000 ."
+    }
+}
