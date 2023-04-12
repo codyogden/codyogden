@@ -264,3 +264,7 @@ dist
 
 # SWC
 .SWC
+
+# Assets
+apps/assets
+!apps/assets/package.json
