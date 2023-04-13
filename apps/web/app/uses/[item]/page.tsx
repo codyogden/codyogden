@@ -1,5 +1,9 @@
-const UsesItemPage = async () => {    
-    return <>hello</>;
-};
+interface PageParams {
+    params: {
+        slug: string;
+    }
+}
 
-export default UsesItemPage;
+export default function Page({ params }: PageParams) {
+    return <h1>My Page</h1>;
+}
