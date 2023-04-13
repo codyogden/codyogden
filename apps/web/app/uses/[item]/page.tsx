@@ -1,5 +1,5 @@
-const Page = async () => {    
+const UsesItemPage = async () => {    
     return <>hello</>;
 };
 
-export default Page;
+export default UsesItemPage;
