@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 
 const UsesPage = async () => {
-    const { data, meta } = await (await fetch(`${process.env.VERCEL_URL}/api/uses`, { cache: 'no-cache' })).json();
+    const { data, meta } = await (await fetch(`https://${process.env.VERCEL_URL}/api/uses`, { cache: 'no-cache' })).json();
     return <>
         <ul className={styles['uses-grid']}>
             {data.map(({ id, slug, name, company, price, image: { src, height, width, alt } }) => {
