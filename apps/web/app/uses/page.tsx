@@ -6,23 +6,34 @@ import styles from './styles.module.css';
 
 export const metadata: Metadata = {
     title: 'Uses - Cody Ogden',
-    description: 'Things I use.',
+    description: 'The things I use.',
 };
 
 
 const UsesPage = async () => {
-    const { data, meta } = await (await fetch(`https://codyogden-60i2u8y0x-codyogden.vercel.app/api/uses`, { cache: 'no-cache' })).json();
+    const { data, meta } = await (await fetch(`http://${process.env.VERCEL_URL}/api/uses`, { cache: 'no-cache' })).json();
     return <>
+        <div style={{
+            textAlign: 'center',
+            margin: '2em 0',
+        }}>
+            <h1 style={{
+                margin: 0,
+            }}>Uses</h1>
+            <p style={{
+                margin: 0,
+            }}>The things I use.</p>
+        </div>
         <ul className={styles['uses-grid']}>
             {data.map(({ id, slug, name, company, price, image: { src, height, width, alt } }) => {
                 return <li key={id}>
                     <div className={styles.card}>
-                        <Link href={`/uses/${slug}`}>
+                        {/* <Link href={`/uses/${slug}`}> */}
                             <Image style={{
                                 display: 'block',
                                 margin: '32px auto 0 auto',
                             }} src={src} height={300} width={300} alt={alt ?? `${name} by ${company}`} />
-                        </Link>
+                        {/* </Link> */}
                         <div style={{
                             display: 'grid',
                             gridTemplateRows: '1fr 1fr',

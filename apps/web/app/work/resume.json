@@ -1,0 +1,92 @@
+{
+    "experience": [
+        {
+            "id": 0,
+            "employer": {
+                "name": "Vercel",
+                "url": "https://vercel.com",
+                "industry": "Internet",
+                "media": {
+                    "logo": "resume-logos/vercel.jpg",
+                    "icon": null
+                }
+            },
+            "positions": [
+                {
+                    "name": "Manager",
+                    "team": "Technical Consulting",
+                    "department": "Customer Success",
+                    "type": "Full-time",
+                    "locationType": "Remote",
+                    "headline": null,
+                    "dates": {
+                        "start": "2022-03-14 GMT-6",
+                        "end": false
+                    },
+                    "key_points": [],
+                    "skills": [
+                        {
+                            "slug": "next-js",
+                            "label": "Next.js"
+                        },
+                        {
+                            "slug": "typescript",
+                            "label": "TypeScript"
+                        }
+                    ]
+                },
+                {
+                    "name": "Technical Consultant",
+                    "team": "",
+                    "department": "",
+                    "type": "Full-time",
+                    "locationType": "Remote",
+                    "headline": null,
+                    "dates": {
+                        "start": "2022-03-14 GMT-6",
+                        "end": false
+                    },
+                    "key_points": [],
+                    "skills": [
+                        {
+                            "slug": "next-js",
+                            "label": "Next.js"
+                        },
+                        {
+                            "slug": "typescript",
+                            "label": "TypeScript"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "employer": {
+                "name": "Kinsta",
+                "url": "https://kinsta.com",
+                "industry": "Internet",
+                "media": {
+                    "logo": "resume-logos/kinsta.jpg",
+                    "icon": null
+                }
+            },
+            "positions": [
+                {
+                    "name": "JavaScript Developer",
+                    "team": null,
+                    "department": null,
+                    "type": "Full-time",
+                    "locationType": "Remote",
+                    "headline": null,
+                    "dates": {
+                        "start": "2021-08-14 GMT-6",
+                        "end": "2022-03-13 GMT-6"
+                    },
+                    "key_points": [],
+                    "skills": []
+                }
+            ]
+        }
+    ]
+}

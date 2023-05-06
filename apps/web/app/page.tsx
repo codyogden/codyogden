@@ -31,5 +31,40 @@ export default function Page() {
             <p>You might know me as the groundskeeper at the <a href="https://killedbygoogle.com">Google graveyard</a> where I research Google's consumer product strategy and their 'killer' reputation.</p>
             <p>My dog, Olly, and I live in San Francisco, California.</p>
         </div>
+        <ul style={{
+            listStyleType: 'none',
+            padding: 0,
+            margin: 0,
+            display: 'flex'
+        }}>
+                {[
+                    {
+                        id: 3,
+                        href: 'https://bsky.app/profile/codyogden.bsky.social',
+                        label: 'blsky'
+                    },
+                    {
+                        id: 0,
+                        href: 'https://twitter.com/codyogden',
+                        label: 'twitter',
+                    },
+                    {
+                        id: 1,
+                        href: 'https://linkedin.com/in/codyogden',
+                        label: 'linkedin',
+                    },
+                    {
+                        id: 2,
+                        href: 'https://instagram.com/codyogden',
+                        label: 'instagram'
+                    }
+            ].map(({ id, href, label }) => <li style={{
+                marginRight: 8,
+            }} key={id}>
+                <Link href={href} rel="me">
+                    {label}
+                </Link>
+            </li>)}
+            </ul>
     </div></div>;
 }

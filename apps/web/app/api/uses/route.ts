@@ -1,20 +1,24 @@
-import { NextResponse } from 'next/server';
+interface UsesCompany {
+    id: string;
+    name: string;
+    url?: string;
+}
+
+interface UsesImage {
+    height: number;
+    width: number;
+    src: string;
+    alt?: string;
+}
 
 interface UsesProduct {
     id: number | string;
     slug: string;
     name: string;
-    company: {
-        name: string;
-        url?: string;
-    };
+    company: UsesCompany;
     price: number;
-    image: {
-        height: number;
-        width: number;
-        src: string;
-        alt?: string;
-    }
+    image: UsesImage;
+    description: string;
 }
 
 export async function GET() {
@@ -23,7 +27,9 @@ export async function GET() {
             id: 1,
             slug: 'mac-studio',
             name: 'Mac Studio',
+            description: '',
             company: {
+                id: '1',
                 name: 'Apple',
                 url: 'https://apple.com',
             },
@@ -39,7 +45,9 @@ export async function GET() {
             id: 2,
             slug: 'fidget-cube',
             name: 'Fidget Cube',
+            description: '',
             company: {
+                id: '2',
                 name: 'Antsy Labs',
                 url: 'https://www.antsylabs.com',
             },
@@ -54,7 +62,9 @@ export async function GET() {
             id: 3,
             slug: 'homepod',
             name: 'HomePod',
+            description: 'The HomePod a is a smart speaker.',
             company: {
+                id: '1',
                 name: 'Apple',
                 url: 'https://apple.com',
             },
@@ -69,7 +79,9 @@ export async function GET() {
             id: 4,
             slug: 'airpods-pro',
             name: 'AirPods Pro',
+            description: '',
             company: {
+                id: '1',
                 name: 'Apple',
                 url: 'https://apple.com',
             },
@@ -84,7 +96,9 @@ export async function GET() {
             id: 5,
             slug: 'airpods-max',
             name: 'AirPods Max',
+            description: '',
             company: {
+                id: '1',
                 name: 'Apple',
                 url: 'https://apple.com',
             },
@@ -99,7 +113,9 @@ export async function GET() {
             id: 6,
             slug: 'apple-airtag',
             name: 'AirTag',
+            description: '',
             company: {
+                id: '1',
                 name: 'Apple',
                 url: 'https://apple.com',
             },
@@ -114,7 +130,9 @@ export async function GET() {
             id: 7,
             slug: 'august-and-opal-laptop-sleeve',
             name: 'Laptop Sleeve',
+            description: '',
             company: {
+                id: '3',
                 name: 'August + Opal',
             },
             price: 4900,
@@ -127,8 +145,10 @@ export async function GET() {
         {
             id: 8,
             slug: 'brother-printer',
-            name: 'Brother HL-L2370DW',
+            name: 'HL-L2370DW',
+            description: '',
             company: {
+                id: '4',
                 name: 'Brother',
                 url: 'https://brother.com'
             },
@@ -143,7 +163,9 @@ export async function GET() {
             id: 9,
             slug: 'everyman-grafton-pen',
             name: 'Grafton Pen',
+            description: '',
             company: {
+                id: '5',
                 name: 'Everyman',
                 url: 'https://everyman.co'
             },
@@ -158,7 +180,9 @@ export async function GET() {
             id: 10,
             slug: 'jcrt-chore-coat',
             name: 'Chore Coat',
+            description: '',
             company: {
+                id: '6',
                 name: 'JCRT',
                 url: 'https://jc-rt.com'
             },

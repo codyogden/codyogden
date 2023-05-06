@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
                     gridTemplateColumns: '1fr 1fr',
                 }}>
                     <div>
-                        <Link href="/">codyogden</Link>
+                        <Link href="/">@codyogden</Link>
                     </div>
                     <nav>
                         <ul style={{
@@ -23,6 +23,12 @@ export default function RootLayout({ children }) {
                             justifyContent: 'flex-end',
                         }}>
                             {[
+                                {
+                                    id: 0,
+                                    href: '/blog',
+                                    target: null,
+                                    text: 'blog',
+                                },
                                 {
                                     id: 1,
                                     href: '/uses',
@@ -37,22 +43,22 @@ export default function RootLayout({ children }) {
                                 },
                                 {
                                     id: 3,
-                                    href: '/resume',
+                                    href: '/work',
                                     target: null,
-                                    text: 'resume'
+                                    text: 'work'
                                 },
-                                {
-                                    id: 4,
-                                    href: 'https://twitter.com/codyogden',
-                                    target: '_blank',
-                                    text: 'twitter'
-                                },
-                                {
-                                    id: 5,
-                                    href: 'https://linkedin.com/in/codyogden',
-                                    target: '_blank',
-                                    text: 'linkedin'
-                                },
+                                // {
+                                //     id: 4,
+                                //     href: 'https://twitter.com/codyogden',
+                                //     target: '_blank',
+                                //     text: 'twitter'
+                                // },
+                                // {
+                                //     id: 5,
+                                //     href: 'https://linkedin.com/in/codyogden',
+                                //     target: '_blank',
+                                //     text: 'linkedin'
+                                // },
                             ].map(({ id, href, target, text }) => <li key={id} style={{ padding: '0 4px' }}>
                                 <Link href={href} target={target}>{text}</Link>
                             </li>)}
