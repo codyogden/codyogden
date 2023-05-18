@@ -23,30 +23,30 @@ export default function RootLayout({ children }) {
                             justifyContent: 'flex-end',
                         }}>
                             {[
-                                {
-                                    id: 0,
-                                    href: '/blog',
-                                    target: null,
-                                    text: 'blog',
-                                },
+                                // {
+                                //     id: 0,
+                                //     href: '/blog',
+                                //     target: null,
+                                //     text: 'blog',
+                                // },
                                 {
                                     id: 1,
                                     href: '/uses',
                                     target: null,
                                     text: 'uses'
                                 },
-                                {
-                                    id: 2,
-                                    href: '/projects',
-                                    target: null,
-                                    text: 'projects'
-                                },
-                                {
-                                    id: 3,
-                                    href: '/work',
-                                    target: null,
-                                    text: 'work'
-                                },
+                                // {
+                                //     id: 2,
+                                //     href: '/projects',
+                                //     target: null,
+                                //     text: 'projects'
+                                // },
+                                // {
+                                //     id: 3,
+                                //     href: '/work',
+                                //     target: null,
+                                //     text: 'work'
+                                // },
                                 // {
                                 //     id: 4,
                                 //     href: 'https://twitter.com/codyogden',
