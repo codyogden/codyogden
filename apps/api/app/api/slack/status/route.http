@@ -1,4 +1,4 @@
-@baseUrl = http://localhost:3000/api/slack/status
+@baseUrl = http://localhost:3001/api/slack/status
 @token = 7d9I8t2YtPEf6SRmi8mP0gtaYukCWI10gGMahBW6BswNrqPFVhc6VwwD6BGMkv7A
 
 ### Focused work
@@ -7,6 +7,13 @@ GET {{baseUrl}}
     &emoji=heads-down
     &text=Focused work
     &expires=240
+
+### Commuting
+GET {{baseUrl}}
+    ?token={{token}}
+    &emoji=train2
+    &text=Commuting
+    &expires=35
 
 ### Walking the dog
 GET {{baseUrl}}
