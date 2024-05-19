@@ -37,8 +37,12 @@ module.exports = (env, argv) => {
         },
         plugins: [],
         devServer: {
-            contentBase: path.join(__dirname, 'dist'),
+            static: {
+                serveIndex: true,
+            },
+            compress: true,
             hot: true,
+            liveReload: true,
         },
     };
 
