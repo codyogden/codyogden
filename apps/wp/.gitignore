@@ -1,8 +1,0 @@
-wp-content/uploads
-wp-content/themes/*
-vendor/
-wp-content/plugins/advanced-custom-fields-pro
-!wp-content/themes/codyogden
-wp-content/plugins/akismet
-wp-content/plugins/hello.php
-wp-content/plugins/s3-uploads
