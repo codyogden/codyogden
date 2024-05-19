@@ -1,5 +1,5 @@
-@baseUrl = http://localhost:3000/api/slack/status
-@token = 7d9I8t2YtPEf6SRmi8mP0gtaYukCWI10gGMahBW6BswNrqPFVhc6VwwD6BGMkv7A
+@baseUrl = http://localhost:3300/api/slack/status
+@token = {{$dotenv API__TOKEN}}
 
 ### Focused work
 GET {{baseUrl}}
