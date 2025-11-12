@@ -1,0 +1,45 @@
+{
+  "name": "blog",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@tiptap/core": "^3.10.5",
+    "@tiptap/extension-blockquote": "^3.10.5",
+    "@tiptap/extension-bullet-list": "^3.10.5",
+    "@tiptap/extension-code-block": "^3.10.5",
+    "@tiptap/extension-code-block-lowlight": "^3.10.5",
+    "@tiptap/extension-details": "^3.10.5",
+    "@tiptap/extension-drag-handle": "^3.10.5",
+    "@tiptap/extension-drag-handle-react": "^3.10.5",
+    "@tiptap/extension-list": "^3.10.5",
+    "@tiptap/extension-list-item": "^3.10.5",
+    "@tiptap/extension-mention": "^3.10.5",
+    "@tiptap/extension-node-range": "^3.10.5",
+    "@tiptap/pm": "^3.10.5",
+    "@tiptap/react": "^3.10.5",
+    "@tiptap/starter-kit": "^3.10.5",
+    "@tiptap/suggestion": "^3.10.5",
+    "highlight.js": "^11.11.1",
+    "lowlight": "^3.3.0",
+    "next": "^16.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.22",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^16.0.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.18",
+    "typescript": "^5.5.3"
+  }
+}

@@ -1,0 +1,191 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tiptap Editor Styles */
+.ProseMirror {
+  outline: none;
+}
+
+.ProseMirror h1 {
+  font-size: 2em;
+  font-weight: bold;
+  margin-top: 0.67em;
+  margin-bottom: 0.67em;
+}
+
+.ProseMirror h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-top: 0.83em;
+  margin-bottom: 0.83em;
+}
+
+.ProseMirror h3 {
+  font-size: 1.17em;
+  font-weight: bold;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.ProseMirror p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+/* Override paragraph margins for task list items */
+.ProseMirror ul[data-type="taskList"] li p {
+  margin-top: 0.5em !important;
+  margin-bottom: 0.5em !important;
+}
+
+.ProseMirror ul:not([data-type="taskList"]),
+.ProseMirror ol {
+  padding-left: 2em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.ProseMirror ul:not([data-type="taskList"]) {
+  list-style-type: disc;
+}
+
+.ProseMirror ol {
+  list-style-type: decimal;
+}
+
+.ProseMirror blockquote {
+  border-left: 4px solid #e5e7eb;
+  padding-left: 1em;
+  margin: 1em 0;
+  font-style: italic;
+}
+
+.ProseMirror code:not(pre code) {
+  background-color: #f3f4f6;
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  font-family: monospace;
+  font-size: 0.9em;
+}
+
+/* Apply github-dark-dimmed theme background to ALL code blocks */
+.ProseMirror pre {
+  padding: 1em;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1em 0;
+  background: #22272e !important; /* github-dark-dimmed background */
+  color: #adbac7;
+}
+
+.ProseMirror pre code {
+  background: transparent !important;
+  padding: 0;
+  color: inherit;
+  display: block;
+}
+
+.ProseMirror pre code.hljs {
+  background: transparent !important;
+}
+
+.ProseMirror hr {
+  border: none;
+  border-top: 2px solid #e5e7eb;
+  margin: 2em 0;
+}
+
+/* Mention Styles */
+.ProseMirror .mention {
+  background-color: #dbeafe;
+  color: #1e40af;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.ProseMirror .mention:hover {
+  background-color: #bfdbfe;
+}
+
+/* Columns Styles */
+.ProseMirror .columns {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin: 1em 0;
+}
+
+.ProseMirror .columns[data-column-count="3"] {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.ProseMirror .column {
+  min-width: 0; /* Prevent overflow */
+  padding: 0.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem;
+  background-color: #f9fafb;
+}
+
+.ProseMirror .column:focus-within {
+  border-color: #3b82f6;
+  outline: 2px solid rgba(59, 130, 246, 0.1);
+  outline-offset: 2px;
+}
+
+/* Task List Styles */
+.ProseMirror ul[data-type="taskList"] {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 1em 0 !important;
+}
+
+.ProseMirror ul[data-type="taskList"] li {
+  list-style: none !important;
+  list-style-type: none !important;
+  display: flex !important;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  min-height: 0 !important;
+  height: auto !important;
+}
+
+.ProseMirror ul[data-type="taskList"] li::marker,
+.ProseMirror ul[data-type="taskList"] li::before {
+  display: none !important;
+  content: none !important;
+  width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.ProseMirror ul[data-type="taskList"] li > label {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin: 0 !important;
+  padding: 0 !important;
+  cursor: pointer;
+  line-height: 1 !important;
+}
+
+.ProseMirror ul[data-type="taskList"] li > label input[type="checkbox"] {
+  margin: 0 !important;
+  padding: 0 !important;
+  cursor: pointer;
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+.ProseMirror ul[data-type="taskList"] li > div {
+  flex: 1;
+  min-width: 0;
+  display: block;
+}
