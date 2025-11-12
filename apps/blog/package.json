@@ -18,6 +18,7 @@
     "@tiptap/extension-drag-handle": "^3.10.5",
     "@tiptap/extension-drag-handle-react": "^3.10.5",
     "@tiptap/extension-list": "^3.10.5",
+    "@tiptap/extension-link": "^3.10.5",
     "@tiptap/extension-list-item": "^3.10.5",
     "@tiptap/extension-mention": "^3.10.5",
     "@tiptap/extension-node-range": "^3.10.5",

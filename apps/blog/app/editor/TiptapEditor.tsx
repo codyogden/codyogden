@@ -5,6 +5,7 @@ import StarterKit from '@tiptap/starter-kit'
 import Blockquote from '@tiptap/extension-blockquote'
 import { DragHandle } from '@tiptap/extension-drag-handle-react'
 import Mention from '@tiptap/extension-mention'
+import Link from '@tiptap/extension-link'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import { Details, DetailsSummary, DetailsContent } from '@tiptap/extension-details'
 import { ListKit } from '@tiptap/extension-list'
@@ -25,7 +26,7 @@ import json from 'highlight.js/lib/languages/json'
 import bash from 'highlight.js/lib/languages/bash'
 import sql from 'highlight.js/lib/languages/sql'
 import { submitEditorData } from './actions'
-import { useTransition, useRef } from 'react'
+import { useTransition, useRef, useEffect, useCallback } from 'react'
 
 // Create lowlight instance with common languages
 const lowlight = createLowlight()
@@ -854,6 +855,12 @@ export default function TiptapEditor() {
         },
         suggestion: mentionSuggestion,
       }),
+      Link.configure({
+        openOnClick: false,
+        HTMLAttributes: {
+          style: 'color: #1e40af; text-decoration: underline;',
+        },
+      }),
       // Add Details extensions last so their input rules are processed first (higher priority)
       CustomDetails,
       DetailsSummary,
@@ -1062,16 +1069,46 @@ export default function TiptapEditor() {
     },
   })
 
-//   const handleSubmit = () => {
-//     if (!editor) return
+  const handleSubmit = useCallback(() => {
+    if (!editor) return
     
-//     const editorData = editor.getJSON()
-//     const editorDataString = JSON.stringify(editorData)
+    const editorData = editor.getJSON()
+    const editorDataString = JSON.stringify(editorData)
     
-//     startTransition(async () => {
-//       await submitEditorData(editorDataString)
-//     })
-//   }
+    startTransition(async () => {
+      await submitEditorData(editorDataString)
+    })
+  }, [editor, startTransition])
+
+  // Auto-save functionality
+  const autoSaveTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  
+  useEffect(() => {
+    if (!editor) return
+
+    const handleUpdate = () => {
+      // Clear any existing timeout
+      if (autoSaveTimeoutRef.current) {
+        clearTimeout(autoSaveTimeoutRef.current)
+      }
+
+      // Set a new timeout to save after 1.5 seconds of inactivity
+      autoSaveTimeoutRef.current = setTimeout(() => {
+        handleSubmit()
+      }, 1500)
+    }
+
+    // Listen to editor updates
+    editor.on('update', handleUpdate)
+
+    // Cleanup function
+    return () => {
+      editor.off('update', handleUpdate)
+      if (autoSaveTimeoutRef.current) {
+        clearTimeout(autoSaveTimeoutRef.current)
+      }
+    }
+  }, [editor, handleSubmit])
 
   if (!editor) {
     return null

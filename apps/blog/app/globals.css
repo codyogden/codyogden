@@ -96,6 +96,16 @@
   margin: 2em 0;
 }
 
+/* Link Styles */
+.ProseMirror a {
+  color: #1e40af;
+  text-decoration: underline;
+}
+
+.ProseMirror a:hover {
+  color: #1e3a8a;
+}
+
 /* Mention Styles */
 .ProseMirror .mention {
   background-color: #dbeafe;
