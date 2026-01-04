@@ -6,7 +6,7 @@ These days, I focus on creating high-impact teams that combine technical depth, 
 
 My work centers around designing and scaling these teams with intention: aligning them to business goals, empowering them to navigate ambiguity, and ensuring they help customers ship their best work using the technology we build.
 
-I currently work with the incredible people building the future of the web at [Vercel](https://vercel.com).
+I currently work with the incredible people building the future of the web at [Clerk](https://clerk.com). Previously, I was at [Vercel](https://vercel.com).
 
 Outside of work, you might know me as the groundskeeper of the [Google Graveyard](https://killedbygoogle.com) where I research Google’s consumer product strategy and their ‘killer’ reputation.
 
